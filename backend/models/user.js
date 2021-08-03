@@ -1,4 +1,4 @@
-const createUser = (sequelize, DataTypes) => {
+const User = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     user_name: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -10,4 +10,4 @@ const createUser = (sequelize, DataTypes) => {
   return User;
 };
 
-module.exports = createUser;
+module.exports = User;

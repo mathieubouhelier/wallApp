@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(express.json());
 
-app.use('/user', route.usersRouter);
+app.use('/user', route.userRouter);
 
 
 app.use((error, _req, res, _next) => {
