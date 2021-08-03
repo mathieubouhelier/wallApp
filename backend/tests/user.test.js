@@ -97,3 +97,87 @@ describe('Tests the endpoint `/users`', () => {
       });
   });
 });
+
+describe('Tests the endpoint `/register`', () => {
+  it('It is possible to login successfully', async () => {
+    await frisby
+      .post(`${url}/users/login`, {
+        email: 'johndoe@gmail.com',
+        user_password: '444444',
+      })
+      .expect('status', 201)
+      .then((response) => {
+        const { body } = response;
+        const result = JSON.parse(body);
+        expect(result.token).not.toBeNull();
+      });
+  });
+
+  it('It will be verify that is not possible to login with empty email', async () => {
+    await frisby
+      .post(`${url}/users/login`, {
+        email: '',
+        user_password: '444444',
+      })
+      .expect('status', 400) //400?????
+      .then((response) => {
+        const { body } = response;
+        const result = JSON.parse(body);
+        expect(result.message).toBe('"email" is required');
+      });
+  });
+
+  it('It will be verify that is not possible to login with empty password', async () => {
+    await frisby
+      .post(`${url}/users/login`, {
+        email: 'johndoe@gmail.com',
+        user_password: '',
+      })
+      .expect('status', 400) //400?????
+      .then((response) => {
+        const { body } = response;
+        const result = JSON.parse(body);
+        expect(result.message).toBe('"password" is required');
+      });
+  });
+
+  it('It will be verify that is not possible to login without password field', async () => {
+    await frisby
+      .post(`${url}/users/login`, {
+        email: 'johndoe@gmail.com',
+      })
+      .expect('status', 400) //400?????
+      .then((response) => {
+        const { body } = response;
+        const result = JSON.parse(body);
+        expect(result.message).toBe('"password" is required');
+      });
+  });
+
+  it('It will be verify that is not possible to login with an non existing user', async () => {
+    await frisby
+      .post(`${url}/users/login`, {
+        email: 'notexistingusar@gmail.com',
+      })
+      .expect('status', 400) //400?????
+      .then((response) => {
+        const { body } = response;
+        const result = JSON.parse(body);
+        expect(result.message).toBe('"Invalid login and/or password');
+      });
+  });
+
+  it('It will be verify that is not possible to login with a wrong password', async () => {
+    await frisby
+      .post(`${url}/users/login`, {
+        email: 'johndoe@gmail.com',
+        user_password: '12121212',
+      })
+      .expect('status', 400) //400?????
+      .then((response) => {
+        const { body } = response;
+        const result = JSON.parse(body);
+        expect(result.message).toBe('"Invalid login and/or password');
+      });
+  });
+});
