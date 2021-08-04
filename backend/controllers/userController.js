@@ -3,17 +3,6 @@ const emailSender = require('../services/emailSender');
 const bcrypt = require('bcrypt');
 const createToken = require('../services/createJWT');
 const SALT = bcrypt.genSaltSync();
-const nodemailer = require('nodemailer');
-require('dotenv').config();
-
-// Parameters to set nodemailer (email sender)
-// const transporter = nodemailer.createTransport({
-//   service: process.env.EMAIL_SERVICE,
-//   auth: {
-//     user: process.env.EMAIL_USER,
-//     pass: process.env.EMAIL_PASSWORD,
-//   },
-// });
 
 const getAllUsers = async (_req, res) => {
   try {
@@ -42,21 +31,6 @@ const registerUser = async (req, res) => {
     const token = await createToken(userWithoutPassword);
 
     emailSender(email, user_name);
-    // const mailOptions = {
-    //   from: process.env.EMAIL_USER,
-    //   to: email,
-    //   subject: 'Registered successfully',
-    //   text: `Thank you ${user_name} and welcome!`,
-    // };
-
-    //module to send email
-    // transporter.sendMail(mailOptions, function (error, info) {
-    //   if (error) {
-    //     console.log(error);
-    //   } else {
-    //     console.log('Email sent: ' + info.response);
-    //   }
-    // });
 
     return res.status(201).json({
       message: 'User registered with success!',
