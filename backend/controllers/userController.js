@@ -52,6 +52,7 @@ const login = async (req, res) => {
       user_password,
       userFromDB.user_password,
     );
+
     if (!userFromDB || !isPasswordValid) {
       return res.status(400).json({ message: 'Invalid login and/or password' });
     }
