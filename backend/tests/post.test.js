@@ -102,7 +102,7 @@ describe('Tests the endpoint `/post`', () => {
       .expect('status', 400)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('"title" is required');
+        expect(json.message).toBe('child \"content\" fails because [\"content\" is not allowed to be empty]');
       });
   });
 
@@ -135,7 +135,7 @@ describe('Tests the endpoint `/post`', () => {
       .expect('status', 400)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('"content" is required');
+        expect(json.message).toBe('child \"content\" fails because [\"content\" is not allowed to be empty]');
       });
   });
 
@@ -467,7 +467,7 @@ describe('Tests the endpoint `/post`', () => {
       .expect('status', 400)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('"title" is required');
+        expect(json.message).toBe('child \"title\" fails because [\"title\" is required]');
       });
   });
 
@@ -500,7 +500,7 @@ describe('Tests the endpoint `/post`', () => {
       .expect('status', 400)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('"content" is required');
+        expect(json.message).toBe('child \"content\" fails because [\"content\" is required]');
       });
   });
 
