@@ -6,6 +6,7 @@ const SALT = bcrypt.genSaltSync();
 
 const registerUser = async (req, res) => {
   try {
+    console.log("req.body", req.body);
     const { user_name, email, user_password } = req.body;
 
     const emailFromDB = await User.create({
