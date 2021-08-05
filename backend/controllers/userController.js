@@ -4,20 +4,6 @@ const bcrypt = require('bcrypt');
 const createToken = require('../services/createJWT');
 const SALT = bcrypt.genSaltSync();
 
-const getAllUsers = async (_req, res) => {
-  try {
-    const users = await User.findAll();
-    res.status(200).json(users);
-  } catch (error) {
-    return res.status(500).json({
-      error: `Something went wrong error: ${error}`,
-    });
-  }
-};
-
-//Add check if email already exist
-// Add data format check
-
 const registerUser = async (req, res) => {
   try {
     const { user_name, email, user_password } = req.body;
@@ -68,7 +54,6 @@ const login = async (req, res) => {
 };
 
 module.exports = {
-  getAllUsers,
   registerUser,
   login,
 };

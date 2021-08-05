@@ -4,7 +4,6 @@ const userValidation = require('../middleware/userValidation');
 
 const userRouter = Router();
 
-userRouter.get('/', userController.getAllUsers);
 userRouter.post(
   '/register',
   userValidation.emailAlreadyExist,

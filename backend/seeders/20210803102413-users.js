@@ -15,7 +15,7 @@ module.exports = {
           id: 2,
           user_name: 'John Doe',
           email: 'johndoe@gmail.com',
-          user_password: '123456',
+          user_password: '$2b$10$4wEADY7nVCL015N.eQn4y.sNaZPHoHV37e3QLZyNw4m84XzU0oVnW',
         },
       ],
       { timestamps: false },
