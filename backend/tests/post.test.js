@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './../.env' });
 
 const url = `http://${process.env.HOSTNAME}:${process.env.PORT}`;
-
+console.log('url', url);
 const sequelize = new Sequelize(
   'wallApp',
   process.env.MYSQL_USER,
@@ -28,12 +28,13 @@ beforeEach(async () => {
   shell.exec('npx sequelize-cli db:seed:all $');
 });
 describe('Tests the endpoint `/post`', () => {
-  it('It is possible to post e new Post', async () => {
+  it.skip('It is possible to post e new Post', async () => {
     const challengeQuery = readFileSync(
       './tests/sqlQueryTests/getAllPosts.sql',
       'utf8',
     ).trim();
     const expectedResult = require('./resultsQueryTests/getAllPostsReturn');
+    let token;
     await frisby
       .post(`${url}/user/login`, {
         email: 'johndoe@gmail.com',
@@ -72,7 +73,7 @@ describe('Tests the endpoint `/post`', () => {
     );
   });
 
-  it('It is not possible to post e new Post with a blank title', async () => {
+  it.skip('It is not possible to post e new Post with a blank title', async () => {
     await frisby
       .post(`${url}/user/login`, {
         email: 'johndoe@gmail.com',
@@ -105,7 +106,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it('It is not possible to post e new Post with a blank content', async () => {
+  it.skip('It is not possible to post e new Post with a blank content', async () => {
     await frisby
       .post(`${url}/user/login`, {
         email: 'johndoe@gmail.com',
@@ -138,7 +139,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it('It is not possible to post without token', async () => {
+  it.skip('It is not possible to post without token', async () => {
     await frisby
       .post(`${url}/post`, {
         title: 'The 3thd one',
@@ -151,7 +152,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it('It is not possible to post with a wrong token', async () => {
+  it.skip('It is not possible to post with a wrong token', async () => {
     await frisby
       .setup({
         request: {
@@ -171,4 +172,189 @@ describe('Tests the endpoint `/post`', () => {
         expect(json.message).toBe('jwt malformed');
       });
   });
+
+  it.skip('It is possible to delete a Post ', async () => {
+    let token;
+    await frisby
+      .post(`${url}/user/login`, {
+        email: 'johndoe@gmail.com',
+        user_password: '123456',
+      })
+      .expect('status', 201)
+      .then((response) => {
+        const { body } = response;
+        const result = JSON.parse(body);
+        token = result.token;
+      });
+
+    await frisby
+      .setup({
+        request: {
+          headers: {
+            Authorization: token,
+            'Content-Type': 'application/json',
+          },
+        },
+      })
+      .delete(`${url}/post/1`)
+      .expect('status', 204);
+  });
+
+  it.skip('It is not possible to delete a Post with logged user different of the one who created it', async () => {
+    let token;
+    await frisby
+      .post(`${url}/user/login`, {
+        email: 'johndoe@gmail.com',
+        user_password: '123456',
+      })
+      .expect('status', 201)
+      .then((response) => {
+        const { body } = response;
+        const result = JSON.parse(body);
+        token = result.token;
+      });
+
+    await frisby
+      .setup({
+        request: {
+          headers: {
+            Authorization: token,
+            'Content-Type': 'application/json',
+          },
+        },
+      })
+      .delete(`${url}/post/2`)
+      .expect('status', 401)
+      .then((response) => {
+        const { json } = response;
+        expect(json.message).toBe('user not granted');
+      });
+  });
+
+  it.skip('It is not possible to delete a non existing Post', async () => {
+    let token;
+    await frisby
+      .post(`${url}/user/login`, {
+        email: 'johndoe@gmail.com',
+        user_password: '123456',
+      })
+      .expect('status', 201)
+      .then((response) => {
+        const { body } = response;
+        const result = JSON.parse(body);
+        token = result.token;
+      });
+
+    await frisby
+      .setup({
+        request: {
+          headers: {
+            Authorization: token,
+            'Content-Type': 'application/json',
+          },
+        },
+      })
+      .delete(`${url}/post/99`)
+      .expect('status', 404)
+      .then((response) => {
+        const { json } = response;
+        expect(json.message).toBe('Post not found');
+      });
+  });
+
+  it.skip('It is not possible to delete a Post with empty token', async () => {
+    let token;
+    await frisby
+      .post(`${url}/user/login`, {
+        email: 'johndoe@gmail.com',
+        user_password: '123456',
+      })
+      .expect('status', 201);
+
+    await frisby
+      .setup({
+        request: {
+          headers: {
+            Authorization: '',
+            'Content-Type': 'application/json',
+          },
+        },
+      })
+      .delete(`${url}/post/1`)
+      .expect('status', 401);
+  });
+
+  it.skip('It is not possible to delete a Post with a wrong token', async () => {
+    let token;
+    await frisby
+      .post(`${url}/user/login`, {
+        email: 'johndoe@gmail.com',
+        user_password: '123456',
+      })
+      .expect('status', 201);
+
+    await frisby
+      .setup({
+        request: {
+          headers: {
+            Authorization: 'wrongToken',
+            'Content-Type': 'application/json',
+          },
+        },
+      })
+      .delete(`${url}/post/1`)
+      .expect('status', 401);
+  });
+
+  // it.skip('It is possible to update a Post', async () => {
+  //   const challengeQuery = readFileSync(
+  //     './tests/sqlQueryTests/getAllPosts.sql',
+  //     'utf8',
+  //   ).trim();
+  //   const expectedResult = require('./resultsQueryTests/getAllPostsReturn');
+  //   await frisby
+  //     .post(`${url}/user/login`, {
+  //       email: 'johndoe@gmail.com',
+  //       user_password: '123456',
+  //     })
+  //     .expect('status', 201)
+  //     .then((response) => {
+  //       const { json } = response;
+  //       expect(json.token).not.toBeNull();
+  //       token = json.token;
+  //     });
+
+  //   await frisby
+  //     .setup({
+  //       request: {
+  //         headers: {
+  //           Authorization: token,
+  //           'Content-Type': 'application/json',
+  //         },
+  //       },
+  //     })
+  //     .post(`${url}/put`, {
+  //       title: 'The 3thd one',
+  //       content: 'again posting',
+  //     })
+  //     .expect('status', 201)
+  //     .then((response) => {
+  //       const { json } = response;
+  //       expect(json.title).toBe('The 3thd one');
+  //       expect(json.content).toBe('again posting');
+  //       expect(json.userId).toBe(2);
+  //     });
+
+  //   expect(await sequelize.query(challengeQuery, { type: 'SELECT' })).toEqual(
+  //     expectedResult,
+  //   );
+  // });
+
+  // it.skip('It is not possible to update a Post with a wrong token', async () => {
+
+  //   it.skip('It is not possible to update a Post with a wrong user id', async () => {
+
+  //   it.skip('It is not possible to delete a Post with a wrong token', async () => {
+
+  //   it.skip('It is not possible to delete a Post with a wrong user id', async () => {
 });

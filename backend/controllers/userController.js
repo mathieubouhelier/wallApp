@@ -13,7 +13,7 @@ const registerUser = async (req, res) => {
       email,
       user_password: bcrypt.hashSync(user_password, SALT),
     });
-    const { password: _, ...userWithoutPassword } = emailFromDB;
+    const { user_password: _, ...userWithoutPassword } = emailFromDB.dataValues;
     const token = await createToken(userWithoutPassword);
 
     emailSender(email, user_name);
@@ -42,8 +42,7 @@ const login = async (req, res) => {
     if (!userFromDB || !isPasswordValid) {
       return res.status(400).json({ message: 'Invalid login and/or password' });
     }
-
-    const { user_password: _, ...userWithoutPassword } = userFromDB;
+    const { user_password: _, ...userWithoutPassword } = userFromDB.dataValues;
     const token = await createToken(userWithoutPassword);
 
     return res.status(201).json({ token }); //201 ????

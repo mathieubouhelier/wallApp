@@ -8,7 +8,9 @@ const authJWT = (req, res, next) => {
       return res.status(401).json({ message: 'missing auth token' });
     }
     const data = jwt.verify(token, secret);
-    req.userData = data.dataValues
+    const { user_password: _, ...dataWithoutPassword } = data;
+    req.userData = dataWithoutPassword
+    console.log(req.userData );
     next();
   } catch (err) {
     return res.status(401).json({ message: 'jwt malformed' });

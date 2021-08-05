@@ -7,7 +7,7 @@ module.exports = {
         id: 1,
         title: 'First Post',
         content: 'starting posting on the Wall',
-        userId: 1,
+        userId: 2,
         published: new Date('2021-08-01T19:58:00.000Z'),
         updated: new Date('2021-08-01T19:58:51.000Z'),
       },

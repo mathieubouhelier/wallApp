@@ -36,7 +36,7 @@ describe('Tests the endpoint `/users`', () => {
     const expectedResult = require('./resultsQueryTests/getAllUsersReturn');
 
     await frisby
-      .post(`${url}/users/register`, {
+      .post(`${url}/user/register`, {
         user_name: 'user4ForTest',
         email: 'user4@gmail.com',
         user_password: '444444',
@@ -54,7 +54,7 @@ describe('Tests the endpoint `/users`', () => {
 
   it.skip('It will be verify that is not possible to register with a name length < 6 characters', async () => {
     await frisby
-      .post(`${url}/users/register`, {
+      .post(`${url}/user/register`, {
         user_name: 'user4',
         email: 'user4@gmail.com',
         user_password: '444444',
@@ -63,14 +63,14 @@ describe('Tests the endpoint `/users`', () => {
       .then((response) => {
         const { json } = response;
         expect(json.message).toBe(
-          '"user_name" length must be at least 8 characters long',
+          'child \"user_name\" fails because [\"user_name\" length must be at least 8 characters long]',
         );
       });
   });
 
   it.skip('It will be verify that is not possible to register with email with a wrong format ', async () => {
     await frisby
-      .post(`${url}/users/register`, {
+      .post(`${url}/user/register`, {
         user_name: 'user4ForTest',
         email: 'user4gmail.com',
         user_password: '444444',
@@ -78,13 +78,13 @@ describe('Tests the endpoint `/users`', () => {
       .expect('status', 400)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('"email" must be a valid email');
+        expect(json.message).toBe('child \"email\" fails because [\"email\" must be a valid email]');
       });
   });
 
   it.skip('It will be verify that is not possible to register with password with a wrong format ', async () => {
     await frisby
-      .post(`${url}/users/register`, {
+      .post(`${url}/user/register`, {
         user_name: 'user4ForTest',
         email: 'user4@gmail.com',
         user_password: '444',
@@ -93,13 +93,13 @@ describe('Tests the endpoint `/users`', () => {
       .then((response) => {
         const { json } = response;
         expect(json.message).toBe(
-          'user_password" length must be at least 8 characters long',
+          'child \"user_password\" fails because [\"user_password\" length must be 6 characters long]',
         );
       });
   });
 });
 
-describe('Tests the endpoint `/register`', () => {
+describe('Tests the endpoint `/login`', () => {
   it.skip('It is possible to login successfully', async () => {
     await frisby
       .post(`${url}/user/login`, {
