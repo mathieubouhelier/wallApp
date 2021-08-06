@@ -6,7 +6,8 @@
   "scripts": {
     "start": " nodemon index.js",
     "dev": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all $",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "start-gendoc": "node swagger.js"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,7 @@
     "sequelize": "^6.6.5",
     "sequelize-cli": "^6.2.0",
     "shelljs": "^0.8.4",
+    "swagger-autogen": "^2.11.1",
     "swagger-ui-express": "^4.1.6"
   }
 }

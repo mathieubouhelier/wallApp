@@ -1,5 +1,22 @@
 const { Posts, User } = require('../models');
 
+const getAllPost = async (req, res) => {
+  try {
+    const postsFromDb = await Posts.findAll({
+      include: {
+        model: User,
+        as: 'user',
+        attributes: { exclude: 'user_password' },
+      },
+    });
+
+    return res.status(200).json(postsFromDb);
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).send({ message: 'Error to get all posts' });
+  }
+};
+
 const addPost = async (req, res) => {
   try {
     const { title, content } = req.body;
@@ -54,4 +71,4 @@ const editPost = async (req, res) => {
   return res.status(200).json(post);
 };
 
-module.exports = { addPost, deletePost, editPost };
+module.exports = { addPost, deletePost, editPost, getAllPost };

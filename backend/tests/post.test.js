@@ -73,6 +73,50 @@ describe('Tests the endpoint `/post`', () => {
     );
   });
 
+  it('It is possible to get all Posts', async () => {
+    const expectedResult = require('./resultsQueryTests/getAllPostsReturn');
+    let token;
+    await frisby
+      .post(`${url}/user/login`, {
+        email: 'johndoe@gmail.com',
+        user_password: '123456',
+      })
+      .expect('status', 201)
+      .then((response) => {
+        const { json } = response;
+        expect(json.token).not.toBeNull();
+        token = json.token;
+      });
+
+    await frisby
+      .setup({
+        request: {
+          headers: {
+            Authorization: token,
+            'Content-Type': 'application/json',
+          },
+        },
+      })
+      .get(`${url}/post`, {
+        title: 'The 3thd one',
+        content: 'again posting',
+      })
+      .expect('status', 201)
+      .then((response) => {
+        const { body } = response;
+        const result = JSON.parse(body);
+        expect(result[0].id).toBe(1);
+        expect(result[0].title).toBe('First Post');
+        expect(result[0].content).toBe('starting posting on the Wall');
+        expect(result[0].published).toBe('2021-08-01T19:58:00.000Z');
+        expect(result[0].updated).toBe('2021-08-01T19:58:51.000Z');
+        expect(result[0].user.id).toBe(1);
+        expect(result[0].user.displayName).toBe('The 2nd one');
+        expect(result[0].user.email).toBe('lewishamilton@gmail.com');
+      });
+
+  });
+
   it.skip('It is not possible to post e new Post with a blank title', async () => {
     await frisby
       .post(`${url}/user/login`, {
@@ -102,7 +146,9 @@ describe('Tests the endpoint `/post`', () => {
       .expect('status', 400)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('child \"content\" fails because [\"content\" is not allowed to be empty]');
+        expect(json.message).toBe(
+          'child "content" fails because ["content" is not allowed to be empty]',
+        );
       });
   });
 
@@ -135,7 +181,9 @@ describe('Tests the endpoint `/post`', () => {
       .expect('status', 400)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('child \"content\" fails because [\"content\" is not allowed to be empty]');
+        expect(json.message).toBe(
+          'child "content" fails because ["content" is not allowed to be empty]',
+        );
       });
   });
 
@@ -407,7 +455,6 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-
   it.skip('It should be not possible to edit a Post with a wrong token', async () => {
     let token;
     await frisby
@@ -436,7 +483,6 @@ describe('Tests the endpoint `/post`', () => {
         expect(json.message).toBe('jwt malformed');
       });
   });
-
 
   it('It should not be possible to edit a Post with empty title', async () => {
     let token;
@@ -467,7 +513,9 @@ describe('Tests the endpoint `/post`', () => {
       .expect('status', 400)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('child \"title\" fails because [\"title\" is required]');
+        expect(json.message).toBe(
+          'child "title" fails because ["title" is required]',
+        );
       });
   });
 
@@ -500,8 +548,9 @@ describe('Tests the endpoint `/post`', () => {
       .expect('status', 400)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('child \"content\" fails because [\"content\" is required]');
+        expect(json.message).toBe(
+          'child "content" fails because ["content" is required]',
+        );
       });
   });
-
 });
