@@ -1,8 +1,5 @@
 import UserService from '../../services/usersAPI';
-import {
-  saveToLocalStorage,
-  loadFromLocalStorage,
-} from '../../services/localStorage';
+import { saveToLocalStorage } from '../../services/localStorage';
 
 class LoginManager {
   async logTheUser(user) {

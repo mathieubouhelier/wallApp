@@ -1,8 +1,8 @@
 import React from 'react';
-import {inputConstants} from '../shared/utils/constants'
+import { inputConstants } from '../shared/utils/constants'
 
 
-const Input = ({ className, name, type, dataTestid, placeholder, value, onChange, inputType, emailValid }) => {
+const Input = ({ className, name, type, dataTestid, placeholder, value, onChange, inputType, inputValid }) => {
   const TypeOfInput = inputType ? inputType : "default"; //Replace by default props ?
 
 
@@ -18,7 +18,9 @@ const Input = ({ className, name, type, dataTestid, placeholder, value, onChange
           value={value ? value : null}
           onChange={onChange}
         />
-        {!emailValid && <small id="emailHelp" className="form-text text-danger">Please enter a valid email address.</small>}
+        {!inputValid ? 
+        <small id="emailHelp" className="form-text text-danger">{inputConstants[TypeOfInput].invalidMessage}</small> : 
+        <small>  </small>}
       </div>
     </div>
 

@@ -43,30 +43,20 @@ const Login = () => {
           <div className="simple-login-container">
             <h2>Login</h2>
             {/* {<h2> {errors.message}</h2>} */}
-            
-                <Input
-                  inputType="email"
-                  emailValid={emailValid}
-                  // data-testid="email-input"
-                  placeholder="Type your email"
-                  // value={user.email}
-                  onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
-                />
-             
-            <div className="row">
-              <div className="col-md-12 form-group">
-                <input
-                  className="form-control"
-                  name="password"
-                  type="password"
-                  data-testid="password-input"
-                  placeholder="Type your password"
-                  value={user.password}
-                  onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
-                />
-                {!passwordValid && <small id="emailHelp" className="form-text text-danger">Please enter a valid password.</small>}
-              </div>
-            </div>
+
+            <Input
+              inputType="email"
+              inputValid={emailValid}
+              onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
+            />
+
+
+            <Input
+              inputType="password"
+              inputValid={passwordValid}
+              onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
+            />
+
             <div className="col text-center">
               <div >
                 <button
