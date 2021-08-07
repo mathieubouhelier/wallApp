@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import Login from '../../components/login/Login'
 
 const Home = () => {
+
+  
+
+
   return (
 
     <>
       <h1> Welcome Home page</h1>
+     <Login/>
     </>
   )
 }
