@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import WallManager from './WallManager';
-import { loadFromLocalStorage, deleteFromLocalStorage } from '../../services/localStorage';
-import jwtDecode from 'jwt-decode';
+import { deleteFromLocalStorage } from '../../services/localStorage';
+import { checkUserAuthorization } from '../../services/auth';
 
 
 
@@ -12,27 +12,6 @@ const Wall = () => {
   const [isFetching, setIsFetching] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(true);
   const [posts, setPosts] = useState([]);
-
-  const checkUserAuthorization = () => {
-    const token = loadFromLocalStorage('WallAppToken')
-
-    if (token != null) {
-      const decoded = jwtDecode(token);
-      console.log("token decoded:", decoded);
-      const now = Date.now().valueOf() / 1000;
-      if (typeof decoded.exp !== 'undefined' && decoded.exp > now) {
-        console.log("decoded", decoded);
-        const user = {
-          id: decoded.id,
-          name: decoded.name,
-          email: decoded.email,
-        };
-        return { authorized: true, user };
-      }
-    }
-    return { authorized: false, user: "" };
-
-  }
 
   useEffect(() => {
     setIsAuthorized(checkUserAuthorization())
