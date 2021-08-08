@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import WallManager from './WallManager';
 import { deleteFromLocalStorage } from '../../services/localStorage';
 import { checkUserAuthorization } from '../../services/auth';
+import PostCard from '../../components/login/PostCard/PostCard';
 
 
 
@@ -55,18 +56,13 @@ const Wall = () => {
         onClick={() => history.push(`/publish`)}
       >Write a new Post</button>}
       {!isFetching && posts.map((post) => {
-        return (<><h2>{post.title}</h2><h3>{post.content} </h3>
-          {isAuthorized.user.id === post.user.id && <div >
-            <button
-              onClick={() => history.push(`/publish`, { post })}
-            >Edit this post</button>
-            <button
-              onClick={(e) => {
-                handleClickDeletePost(e, post.id);
-              }}
-            >Delete this post</button>
-          </div>}
-        </>
+        const visible = isAuthorized.user.id === post.user.id;
+        return (
+          <PostCard
+            visible={visible}
+            post={post}
+            handleClickDeletePost={handleClickDeletePost}
+          />
         )
       })}
     </div>

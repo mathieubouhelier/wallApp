@@ -9,9 +9,9 @@ import PublishManager from './PublishPostManager';
 
 
 const PublishPost = (props) => {
-  const postToEdit = props.location?.state?.post;
-  console.log("post", postToEdit);
   const history = useHistory();
+  const postToEdit = props.dataWall.location.state?.post;
+  console.log("post", postToEdit);
 
   const [post, setPost] = useState({
     title: postToEdit ? postToEdit.title : '',

@@ -26,8 +26,8 @@ function App() {
         <Route
           exact
           path="/publish"
-          render={() =>
-            checkUserAuthorization().authorized ? <PublishPost /> : <Redirect to="/" />
+          render={(props) =>
+            checkUserAuthorization().authorized ? <PublishPost dataWall={props}/> : <Redirect to="/" />
           }
         />
         <Route
