@@ -35,7 +35,6 @@ const Wall = () => {
 
   useEffect(() => {
     const test = checkUserAuthorization()
-    console.log("test", test);
     setIsAuthorized(checkUserAuthorization().authorized)
     async function fetchData() {
       const response = await WallManager.loadAllPosts();
@@ -68,13 +67,15 @@ const Wall = () => {
     <div className="container">
       <h1>Welcome to the Wall</h1>
       <button
-              onClick={handleClickLogout}
-            >Logout</button>
-             <button
-              onClick={() => history.push(`/`)}
-            >home</button>
+        onClick={handleClickLogout}
+      >Logout</button>
+      <button
+        onClick={() => history.push(`/`)}
+      >home</button> <button
+        onClick={() => history.push(`/publish`)}
+      >Write a new Post</button>
       {!isFetching && posts.map((post) => {
-        return (<><h3>{post.content}</h3>
+        return (<><h2>{post.title}</h2><h3>{post.content} </h3>
           {isAuthorized && <div >
             <button
               onClick={() => history.push(`/publish`, { post })}
