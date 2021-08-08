@@ -9,7 +9,7 @@ const Wall = () => {
   const [posts, setPosts] = useState([]);
 
 
-  useEffect( () => {
+  useEffect(() => {
     async function fetchData() {
       // const token =  await localStorage.getItem("WallAppToken")
       const response = await WallManager.loadAllPosts();
@@ -18,17 +18,24 @@ const Wall = () => {
       setIsFetching(false)
     }
     fetchData();
-   WallManager.loadAllPosts()
+    WallManager.loadAllPosts()
   }, []);
+
+  
 
   return (
 
 
     <div className="container">
-<h1>Welcome to the Wall</h1>
-{!isFetching && posts.map((post) => {
-  return <h3>{post.content}</h3>
-})}
+      <h1>Welcome to the Wall</h1>
+      {!isFetching && posts.map((post) => {
+        return (<><h3>{post.content}</h3>
+          <button
+            onClick={() => history.push(`/publish`, {post})}
+          >Edit this post</button></>
+
+        )
+      })}
     </div>
 
   )

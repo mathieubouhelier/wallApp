@@ -6,16 +6,16 @@ import { useHistory } from 'react-router-dom';
 import Input from "../../shared/components/Input";
 import PublishManager from './PublishPostManager';
 
-import { deleteFromLocalStorage } from '../../services/localStorage';
 
 
-
-const PublishPost = () => {
+const PublishPost = (props) => {
+  const postToEdit = props.location.state.post;
+  console.log("post", postToEdit);
   const history = useHistory();
 
   const [post, setPost] = useState({
-    title: '',
-    content: '',
+    title: postToEdit ? postToEdit.title : '',
+    content: postToEdit ? postToEdit.content : '',
   });
   const [errorMessagePost, setErrorMessagePost] = useState("");
 
@@ -25,20 +25,25 @@ const PublishPost = () => {
   async function handleClick(event) {
     event.preventDefault();
     const response = await PublishManager.publishPost(post);
-    if ( response.status === 201) {
-      console.log("if");
-    return setErrorMessagePost('Post published successfully');
+    if (response.status === 201) {
+      return setErrorMessagePost('Post published successfully');
 
-      // history.push('/wall')
     }
 
     setErrorMessagePost(response.data.message);
 
   }
+  const handleClickBackToWall = (event) => {
+    event.preventDefault();
+
+    history.push('/wall')
+
+  }
+
 
   useEffect(() => {
-    setTitleValid(post.title.length > 5)
-    setContentValid(post.content.length > 10)
+    setTitleValid(post.title?.length > 5)
+    setContentValid(post.content?.length > 10)
 
   }, [post]);
 
@@ -46,6 +51,7 @@ const PublishPost = () => {
 
     <>
       <h1> Welcome to publish page</h1>
+      {postToEdit ? <h2>You can edit your post</h2> : <h2>You can write and publish your post</h2>}
 
       <Container>
 
@@ -56,11 +62,13 @@ const PublishPost = () => {
             <Input
               inputType="title"
               inputValid={titleValid || post.title === ""}
+              value={post.title}
               onChange={(event) => setPost({ ...post, [event.target.name]: event.target.value })}
             />
             <Input
               inputType="content"
               inputValid={contentValid || post.content === ""}
+            value={post.content}
               onChange={(event) => setPost({ ...post, [event.target.name]: event.target.value })}
             />
             <div className="col text-center">
@@ -73,6 +81,16 @@ const PublishPost = () => {
                   onClick={handleClick}
                 >
                   Publish
+                </button>
+              </div>
+              <div >
+                <button
+                  className="btn btn-block btn-login my-3 col-md-12 "
+                  type="button"
+                  data-testid="signin-btn"
+                  onClick={handleClickBackToWall}
+                >
+                  Back to the Wall
                 </button>
               </div>
             </div>
