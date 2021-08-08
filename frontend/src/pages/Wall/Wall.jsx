@@ -17,14 +17,15 @@ const Wall = () => {
     const token = loadFromLocalStorage('WallAppToken')
 
     if (token != null) {
-      console.log("token :", token);
       const decoded = jwtDecode(token);
+      console.log("token decoded:", decoded);
       const now = Date.now().valueOf() / 1000;
       if (typeof decoded.exp !== 'undefined' && decoded.exp > now) {
+        console.log("decoded", decoded);
         const user = {
-          id: "id",
-          name: "userData.name",
-          email: "userData.email",
+          id: decoded.id,
+          name: decoded.name,
+          email: decoded.email,
         };
         return { authorized: true, user };
       }
@@ -34,8 +35,7 @@ const Wall = () => {
   }
 
   useEffect(() => {
-    const test = checkUserAuthorization()
-    setIsAuthorized(checkUserAuthorization().authorized)
+    setIsAuthorized(checkUserAuthorization())
     async function fetchData() {
       const response = await WallManager.loadAllPosts();
       setPosts([...response.data])
@@ -48,7 +48,6 @@ const Wall = () => {
   function handleClickDeletePost(event, postId) {
     event.preventDefault();
     async function deletePost() {
-      history.push('/registeredsuccessfully')
       const response = await WallManager.deleteOnePost(postId);
       if (response.status === 204) {
         alert("Post successfully deleted")
@@ -73,12 +72,14 @@ const Wall = () => {
       <button
         onClick={() => history.push(`/`)}
       >home</button>
-      {isAuthorized && <button
+      {isAuthorized.authorized && <button
         onClick={() => history.push(`/publish`)}
       >Write a new Post</button>}
       {!isFetching && posts.map((post) => {
+        console.log("isAuthorized.user.id", isAuthorized.user.id);
+        console.log("post.id ", post.user.id);
         return (<><h2>{post.title}</h2><h3>{post.content} </h3>
-          {isAuthorized && <div >
+          {isAuthorized.user.id === post.user.id && <div >
             <button
               onClick={() => history.push(`/publish`, { post })}
             >Edit this post</button>
