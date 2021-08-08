@@ -7,6 +7,7 @@ const schema = Joi.object({
 
 // Check if POST request contain the correct data
 const dataValidation = async (req, res, next) => {
+  console.log("dataValidation", req.body);
   const { title, content } = req.body;
   const { error } = schema.validate({ title, content });
   if (error) {

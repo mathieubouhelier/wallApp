@@ -6,7 +6,6 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './../.env' });
 
 const url = `http://${process.env.HOSTNAME}:${process.env.PORT}`;
-console.log('url', url);
 const sequelize = new Sequelize(
   'wallApp',
   process.env.MYSQL_USER,
