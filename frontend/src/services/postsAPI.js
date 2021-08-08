@@ -23,7 +23,6 @@ class PostService {
   }
   /** post one Post */
   async publish(post, token) {
-    console.log("api post", post);
     return this.http.post('post',post, {
       headers: {
         authorization: token,
@@ -35,6 +34,23 @@ class PostService {
   async getAllPosts() {
     return this.http.get('post', {});
   }
+
+  /** Update  one (id) post */
+  async updatePost(token, id) {
+    return this.http.put(
+      `/post/${id}`,
+      { headers: { Authorization: token } },
+    );
+  }
+
+    /** Update  one (id) post */
+    async deleteOne(token, id) {
+      return this.http.delete(
+        `/post/${id}`,
+        { headers: { Authorization: token } },
+      );
+    }
+
 }
 
 export default new PostService();

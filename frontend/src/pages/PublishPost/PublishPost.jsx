@@ -9,7 +9,7 @@ import PublishManager from './PublishPostManager';
 
 
 const PublishPost = (props) => {
-  const postToEdit = props.location.state.post;
+  const postToEdit = props.location.state?.post;
   console.log("post", postToEdit);
   const history = useHistory();
 

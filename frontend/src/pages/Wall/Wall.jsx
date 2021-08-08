@@ -10,18 +10,32 @@ const Wall = () => {
 
 
   useEffect(() => {
+    console.log("useeffect");
     async function fetchData() {
-      // const token =  await localStorage.getItem("WallAppToken")
       const response = await WallManager.loadAllPosts();
-      console.log(response);
       setPosts([...response.data])
       setIsFetching(false)
     }
     fetchData();
     WallManager.loadAllPosts()
-  }, []);
+  }, [isFetching]);
 
-  
+  function handleClickDeletePost(event, postId) {
+    event.preventDefault();
+    async function deletePost() {
+      const response = await WallManager.deleteOnePost(postId);
+      if (response.status === 204) {
+        alert("Post successfully deleted")
+
+      }
+      console.log("response click delete",response);
+      setIsFetching(true);
+    }
+    deletePost();
+    
+
+    console.log("handle", postId);
+  }
 
   return (
 
@@ -31,8 +45,14 @@ const Wall = () => {
       {!isFetching && posts.map((post) => {
         return (<><h3>{post.content}</h3>
           <button
-            onClick={() => history.push(`/publish`, {post})}
-          >Edit this post</button></>
+            onClick={() => history.push(`/publish`, { post })}
+          >Edit this post</button>
+          <button
+            onClick={(e) => {
+              handleClickDeletePost(e, post.id);
+            }}
+          >Delete this post</button>
+        </>
 
         )
       })}
