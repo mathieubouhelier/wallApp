@@ -2,6 +2,8 @@ const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const route = require('./routes');
+const cors = require('cors');
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -9,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 
-
+app.use(cors());
 app.use('/user', route.userRouter);
 app.use('/post', route.postsRouter);
 

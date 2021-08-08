@@ -29,7 +29,6 @@ const Register = () => {
     if (response.status === 201) {
       history.push('/wall')
     }
-    console.log("response from SendRegisteredDataToManager", response.data.message);
     setErrorMessageRegister(response.data.message);
   }
 

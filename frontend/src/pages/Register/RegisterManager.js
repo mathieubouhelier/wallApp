@@ -6,23 +6,19 @@ import {
 
 class RegisterManager {
   async logTheUser(user) {
-    const response = await UserService.userLogin({
+    const response = await UserService.userSignup({
+      user_name: user.name,
       email: user.email,
       user_password: user.password,
     });
-
-    console.log('reponseRegisterManager', response);
-
-    if (response.status === 201) {
+    if (response?.status === 201) {
       const { token } = response.data;
       console.log(token);
       saveToLocalStorage('WallAppToken', token);
       return response;
     }
-
-    
-      deleteFromLocalStorage('WallAppToken');
-      return response;
+    deleteFromLocalStorage('WallAppToken');
+    return response.data.message ? response : {data:{message:'something wrong happened'}};
   }
 }
 

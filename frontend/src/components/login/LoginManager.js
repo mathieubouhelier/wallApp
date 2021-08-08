@@ -11,8 +11,6 @@ class LoginManager {
       user_password: user.password,
     });
 
-    console.log('reponseLoginManager', response);
-
     if (response.status === 201) {
       const { token } = response.data;
       console.log(token);
@@ -21,7 +19,8 @@ class LoginManager {
     }
 
     deleteFromLocalStorage('WallAppToken');
-    return response;
+    return response.data.message ? response : {data:{message:'something wrong happened'}};
+
   }
 }
 

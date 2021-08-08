@@ -40,7 +40,7 @@ const emailAlreadyExist = async (req, res, next) => {
   const emailFromDB = await User.findOne({ where: { email } });
   if (emailFromDB) {
     return res.status(409).json({
-      message: 'Usuário já existe',
+      message: 'User already exist',
     });
   }
   next();
