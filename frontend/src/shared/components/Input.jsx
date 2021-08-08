@@ -2,6 +2,8 @@ import React from 'react';
 import { inputConstants } from '../utils/constants'
 
 
+
+
 const Input = ({ className, name, type, dataTestid, placeholder, value, onChange, inputType, inputValid }) => {
   const TypeOfInput = inputType ? inputType : "default"; //Replace by default props ?
 
