@@ -20,8 +20,9 @@ class LoginManager {
       return response;
     }
 
-    deleteFromLocalStorage('WallAppToken');
-    return response;
+    
+      deleteFromLocalStorage('WallAppToken');
+      return response;
   }
 }
 

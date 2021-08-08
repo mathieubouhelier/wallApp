@@ -1,5 +1,5 @@
 import React from 'react';
-import { inputConstants } from '../shared/utils/constants'
+import { inputConstants } from '../utils/constants'
 
 
 const Input = ({ className, name, type, dataTestid, placeholder, value, onChange, inputType, inputValid }) => {

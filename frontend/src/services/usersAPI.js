@@ -21,34 +21,11 @@ class UserService {
   }
 
   handleError(error) {
-    console.log(error.response.data);
-    let errorMsg;
-    switch (error.response.status) {
-      case fiftyHundred:
-        errorMsg = {
-          // error: { message: 'E-mail already in database.', code: 500 },
-          error: {
-            message: error.response.data,
-            code: error.response.status,
-          },
-        };
-        break;
-      default:
-        errorMsg = {
-          error: {
-            message: error.response.statusText,
-            code: error.response.status,
-          },
-        };
-        break;
-    }
-
-    throw errorMsg;
+    return error.response;
   }
 
   /** User login */
   async userLogin(body) {
-    console.log("body", body);
     return this.http.post('user/login', body);
   }
 

@@ -14,7 +14,14 @@ export const inputConstants = {
     type: "password",
     placeholder: "Type your password",
     invalidMessage: "Please enter a valid password."
-
+  },
+  "passwordConfirmation":
+  {
+    className: "form-control",
+    name: "passwordConfirmation",
+    type: "password",
+    placeholder: "Type your password",
+    invalidMessage: "Please enter a valid password."
   },
   "default":
   {
