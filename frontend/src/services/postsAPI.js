@@ -21,14 +21,15 @@ class PostService {
   handleError(error) {
     return error.response;
   }
-  // /** Get Posts */
-  // async getAllPosts(token) {
-  //   return this.http.get('post', {
-  //     headers: {
-  //       authorization: token,
-  //     },
-  //   });
-  // }
+  /** post one Post */
+  async publish(post, token) {
+    console.log("api post", post);
+    return this.http.post('post',post, {
+      headers: {
+        authorization: token,
+      },
+    });
+  }
 
   /** Get Posts */
   async getAllPosts() {

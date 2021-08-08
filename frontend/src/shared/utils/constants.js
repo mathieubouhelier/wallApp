@@ -31,6 +31,22 @@ export const inputConstants = {
     placeholder: "Confirm your password",
     invalidMessage: "Please enter a valid password with at least 6 characters."
   },
+  "title":
+  {
+    className: "form-control",
+    name: "title",
+    type: "text",
+    placeholder: "Digit the title",
+    invalidMessage: "Please enter a valid title with at least 6 characters."
+  },
+  "content":
+  {
+    className: "form-control",
+    name: "content",
+    type: "text",
+    placeholder: "Digit the content",
+    invalidMessage: "Please enter a valid content with at least 20 characters."
+  },
   "default":
   {
     className: "form-control",

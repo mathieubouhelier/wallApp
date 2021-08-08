@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container';
 import RegisterManager from './RegisterManager';
 import { useHistory } from 'react-router-dom';
 import Input from '../../shared/components/Input'
-import { deleteFromLocalStorage } from '../../services/localStorage';
 
 
 

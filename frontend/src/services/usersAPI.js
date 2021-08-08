@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-const fiftyHundred = 500;
 
 class UserService {
   constructor() {
