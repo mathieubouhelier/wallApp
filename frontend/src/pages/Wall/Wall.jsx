@@ -60,7 +60,8 @@ const Wall = () => {
 
   function handleClickLogout(event) {
     event.preventDefault();
-    deleteFromLocalStorage("WallAppToken")
+    deleteFromLocalStorage("WallAppToken");
+    setIsFetching(true);
   }
 
   return (
@@ -71,9 +72,10 @@ const Wall = () => {
       >Logout</button>
       <button
         onClick={() => history.push(`/`)}
-      >home</button> <button
+      >home</button>
+      {isAuthorized && <button
         onClick={() => history.push(`/publish`)}
-      >Write a new Post</button>
+      >Write a new Post</button>}
       {!isFetching && posts.map((post) => {
         return (<><h2>{post.title}</h2><h3>{post.content} </h3>
           {isAuthorized && <div >
