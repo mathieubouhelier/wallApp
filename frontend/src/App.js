@@ -8,12 +8,15 @@ import {
 import './App.css';
 import Home from './pages/Home/Home';
 import Wall from './pages/Wall/Wall';
+import NotFound from './pages/NotFound/NotFound';
 import {checkUserAuthorization} from './services/auth';
 import Register from './pages/Register/Register';
 import PublishPost from './pages/PublishPost/PublishPost';
 import RegisteredSuccessfully from './pages/RegisteredSuccessfully/RegisteredSuccessfully';
 
 function App() {
+ 
+    
   return (
     <Router>
       <Switch>

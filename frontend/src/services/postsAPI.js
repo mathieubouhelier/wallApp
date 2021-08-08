@@ -1,15 +1,17 @@
 import axios from 'axios';
 
+
+
 class PostService {
   constructor() {
-    const url = 'http://localhost:3000';
+    // const url = 'http://localhost:3000';
+    const url = process.env.REACT_APP_API_URL || 'http://localhost:3000';
     const timeout = 30000;
 
     this.http = axios.create({
       baseURL: url,
       timeout,
     });
-
     // Define the  handlers
     this.http.interceptors.response.use(this.handleSuccess, this.handleError);
   }

@@ -55,8 +55,6 @@ const Wall = () => {
         onClick={() => history.push(`/publish`)}
       >Write a new Post</button>}
       {!isFetching && posts.map((post) => {
-        console.log("isAuthorized.user.id", isAuthorized.user.id);
-        console.log("post.id ", post.user.id);
         return (<><h2>{post.title}</h2><h3>{post.content} </h3>
           {isAuthorized.user.id === post.user.id && <div >
             <button

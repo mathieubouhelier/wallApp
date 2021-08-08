@@ -6,10 +6,8 @@ import jwtDecode from 'jwt-decode';
 
     if (token != null) {
       const decoded = jwtDecode(token);
-      console.log("token decoded:", decoded);
       const now = Date.now().valueOf() / 1000;
       if (typeof decoded.exp !== 'undefined' && decoded.exp > now) {
-        console.log("decoded", decoded);
         const user = {
           id: decoded.id,
           name: decoded.name,

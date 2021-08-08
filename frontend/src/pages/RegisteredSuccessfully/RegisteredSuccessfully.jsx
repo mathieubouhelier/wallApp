@@ -9,8 +9,6 @@ const RegisteredSuccessfully = () => {
   }
 
   return (
-
-
     <div className="container">
       <div className="simple-login-container">
         <div className="col text-center">
@@ -28,9 +26,7 @@ const RegisteredSuccessfully = () => {
         </div>
       </div>
     </div>
-
   )
-
 }
 
 export default RegisteredSuccessfully;
