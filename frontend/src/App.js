@@ -32,8 +32,7 @@ function App() {
           path="/registeredsuccessfully"
           component={RegisteredSuccessfully}
         />
-        {/* <Route exact path="/login" component={Login} />
-        <Route path="/" component={NotFound} /> */}
+        <Route path="/" component={NotFound} /> 
       </Switch>
     </Router>
   );
