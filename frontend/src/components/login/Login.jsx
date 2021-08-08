@@ -26,7 +26,6 @@ const Login = () => {
     if ( response.status === 201) {
       history.push('/wall')
     }
-    console.log("response from handleClick", response.data.message);
     setErrorMessageLogin(response.data.message);
 
 }

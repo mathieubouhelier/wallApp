@@ -1,12 +1,20 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import WallManager from './WallManager';
 
 
 const Wall = () => {
   const history = useHistory();
 
-  useEffect(() => {
-   
+  useEffect( () => {
+    async function fetchData() {
+      // const token =  await localStorage.getItem("WallAppToken")
+      const response = await WallManager.loadAllPosts();
+      console.log(response);
+      
+    }
+    fetchData();
+   WallManager.loadAllPosts()
   }, []);
 
   return (
