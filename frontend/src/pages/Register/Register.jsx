@@ -27,7 +27,7 @@ const Register = () => {
   async function SendRegisteredDataToManager() {
     const response = await RegisterManager.logTheUser(user);
     if (response.status === 201) {
-      history.push('/wall')
+      history.push('/registeredsuccessfully')
     }
     setErrorMessageRegister(response.data.message);
   }

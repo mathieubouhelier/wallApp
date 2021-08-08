@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-const fiftyHundred = 500;
-
-class UserService {
+class PostService {
   constructor() {
     const url = 'http://localhost:3000';
     const timeout = 30000;
@@ -12,7 +10,7 @@ class UserService {
       timeout,
     });
 
-    // Define os handlers para tratamento de erro e sucesso
+    // Define the  handlers
     this.http.interceptors.response.use(this.handleSuccess, this.handleError);
   }
 
@@ -24,17 +22,14 @@ class UserService {
     return error.response;
   }
 
-  /** User login */
-  async userLogin(body) {
-    return this.http.post('user/login', body);
+  /** Get Posts */
+  async getAllPosts(token) {
+    return this.http.post('post', {
+      headers: {
+        Authorization: token,
+      },
+    });
   }
-
-  /** User signup */
-  async userSignup(body) {
-    console.log("body", body);
-      return this.http.post('use/register', body);
-  }
-
 }
 
-export default new UserService();
+export default new PostService();
