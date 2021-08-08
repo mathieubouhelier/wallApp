@@ -4,14 +4,14 @@ import {
   deleteFromLocalStorage,
 } from '../../services/localStorage';
 
-class LoginManager {
+class RegisterManager {
   async logTheUser(user) {
     const response = await UserService.userLogin({
       email: user.email,
       user_password: user.password,
     });
 
-    console.log('reponseLoginManager', response);
+    console.log('reponseRegisterManager', response);
 
     if (response.status === 201) {
       const { token } = response.data;
@@ -26,4 +26,4 @@ class LoginManager {
   }
 }
 
-export default new LoginManager();
+export default new RegisterManager();

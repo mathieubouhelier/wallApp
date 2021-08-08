@@ -13,6 +13,7 @@ const Register = () => {
 
   const [user, setUser] = useState({
     email: '',
+    name:'',
     password: '',
     passwordConfirmation: '',
   });
@@ -21,6 +22,7 @@ const Register = () => {
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
   const [passwordConfirmationValid, setPasswordConfirmationValid] = useState(false);
+  const [nameValid, setNameValid] = useState(false);
 
   async function SendRegisteredDataToManager() {
     const response = await RegisterManager.logTheUser(user);
@@ -31,11 +33,13 @@ const Register = () => {
     setErrorMessageRegister(response.data.message);
   }
 
-  function handleClick() {
+  function handleClick(event) {
+    event.preventDefault();
+
     if (user.password === user.passwordConfirmation) {
       SendRegisteredDataToManager()
     }
-    setErrorMessageRegister("The two password are equals");
+    setErrorMessageRegister("The two passwords are equals");
   }
 
   useEffect(() => {
@@ -43,6 +47,7 @@ const Register = () => {
 
     const isEmailValid = regexEmail.test(user.email);
     setEmailValid(isEmailValid)
+    setNameValid(user.name.length > 7)
     setPasswordValid(user.password.length > 5)
     setPasswordConfirmationValid(user.passwordConfirmation.length > 5)
     setErrorMessageRegister("");
@@ -61,39 +66,39 @@ const Register = () => {
             Enter your email address to create an account.
           </h2>
           {errorMessageRegister && <h2> {errorMessageRegister}</h2>}
+          
+          <Input
+            inputType="name"
+            inputValid={nameValid || user.name === ""}
+            onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
+          />
           <Input
             inputType="email"
             inputValid={emailValid || user.email === ""}
             onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
           />
-          <h2 className="my-2">
-            Choose your password.
-          </h2>
-          <Input
+         
+          <Input 
             inputType="password"
             inputValid={(passwordValid || user.password === "")}
             onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
           />
-          <h2 className="my-2">
-            Repeat your password.
-          </h2>
+         
           <Input
             inputType="passwordConfirmation"
             inputValid={(passwordConfirmationValid || user.passwordConfirmation === "")}
             onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
           />
-          <div className="col text-center">
-            <div >
+          <div className="col text-center mt-5">
               <button
                 className="btn btn-block btn-login my-3 col-md-12 "
                 type="button"
-                data-testid="signin-btn"
+                data-testid="sign-btn"
                 disabled={!emailValid || !passwordValid}
                 onClick={handleClick}
               >
                 Sing in
               </button>
-            </div>
           </div>
         </div>
       </Container>

@@ -7,21 +7,29 @@ export const inputConstants = {
     placeholder: "Type your email",
     invalidMessage: "Please enter a valid email address."
   },
+  "name":
+  {
+    className: "form-control",
+    name: "name",
+    type: "text",
+    placeholder: "Type your name",
+    invalidMessage: "Please enter a valid name with at least 8 characters."
+  },
   "password":
   {
     className: "form-control",
     name: "password",
     type: "password",
     placeholder: "Type your password",
-    invalidMessage: "Please enter a valid password."
+    invalidMessage: "Please enter a valid password with at least 6 characters."
   },
   "passwordConfirmation":
   {
     className: "form-control",
     name: "passwordConfirmation",
     type: "password",
-    placeholder: "Type your password",
-    invalidMessage: "Please enter a valid password."
+    placeholder: "Confirm your password",
+    invalidMessage: "Please enter a valid password with at least 6 characters."
   },
   "default":
   {

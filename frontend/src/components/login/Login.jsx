@@ -20,7 +20,8 @@ const Login = () => {
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
 
-  async function handleClick() {
+  async function handleClick(event) {
+    event.preventDefault();
     const response = await LoginManager.logTheUser(user);
     if ( response.status === 201) {
       history.push('/wall')
