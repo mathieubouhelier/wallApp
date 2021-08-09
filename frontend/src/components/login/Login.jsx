@@ -84,7 +84,7 @@ return (
                 className="btn btn-block btn-register mt-5 col-md-12"
                 type="button"
                 data-testid="no-account-btn"
-              // onClick={() => history.push('/register')}
+              onClick={() => history.push('/register')}
               >
                 {' '}
                 Register
@@ -95,7 +95,7 @@ return (
                 className="btn btn-block btn-register mt-3 col-md-12"
                 type="button"
                 data-testid="no-account-btn"
-                // onClick={() => history.push('/register')}
+                 onClick={() => history.push('/wall')}
                 onClick={handleClickVisitor}
 
               >

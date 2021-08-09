@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import { useHistory } from 'react-router-dom';
 import Input from "../../shared/components/Input";
 import PublishManager from './PublishPostManager';
+import Header from '../../components/Header/Header'
 
 
 
@@ -50,6 +51,8 @@ const PublishPost = (props) => {
   return (
 
     <>
+      <Header  />
+
       <h1> Welcome to publish page</h1>
       {postToEdit ? <h2>You can edit your post</h2> : <h2>You can write and publish your post</h2>}
 

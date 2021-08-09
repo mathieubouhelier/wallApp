@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import WallManager from './WallManager';
-import { deleteFromLocalStorage } from '../../services/localStorage';
 import { checkUserAuthorization } from '../../services/auth';
-import PostCard from '../../components/login/PostCard/PostCard';
-
+import PostCard from '../../components/PostCard/PostCard';
+import Header from '../../components/Header/Header'
 
 
 
 const Wall = () => {
   const history = useHistory();
   const [isFetching, setIsFetching] = useState(true);
-  const [isAuthorized, setIsAuthorized] = useState(true);
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -37,21 +36,10 @@ const Wall = () => {
     deletePost();
   }
 
-  function handleClickLogout(event) {
-    event.preventDefault();
-    deleteFromLocalStorage("WallAppToken");
-    setIsFetching(true);
-  }
-
   return (
     <div className="container">
+      <Header />
       <h1>Welcome to the Wall</h1>
-      <button
-        onClick={handleClickLogout}
-      >Logout</button>
-      <button
-        onClick={() => history.push(`/`)}
-      >home</button>
       {isAuthorized.authorized && <button
         onClick={() => history.push(`/publish`)}
       >Write a new Post</button>}
