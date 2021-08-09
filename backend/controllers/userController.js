@@ -34,14 +34,13 @@ const login = async (req, res) => {
     const { email, user_password } = req.body;
     const userFromDB = await User.findOne({ where: { email } });
 
+    if (!userFromDB || !isPasswordValid) {
+      return res.status(400).json({ message: 'Invalid login and/or password' });
+    }
     const isPasswordValid = await bcrypt.compare(
       user_password,
       userFromDB.user_password,
     );
-
-    if (!userFromDB || !isPasswordValid) {
-      return res.status(400).json({ message: 'Invalid login and/or password' });
-    }
     const { user_password: _, ...userWithoutPassword } = userFromDB.dataValues;
     const token = await createToken(userWithoutPassword);
 

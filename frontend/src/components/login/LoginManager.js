@@ -10,7 +10,7 @@ class LoginManager {
       email: user.email,
       user_password: user.password,
     });
-
+console.log("loginmanager", response.status);
     if (response.status === 201) {
       const { token } = response.data;
       console.log(token);
