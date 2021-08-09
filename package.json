@@ -1,0 +1,34 @@
+{
+  "name": "wallapp",
+  "version": "1.0.0",
+  "description": "Você já usa o GitHub diariamente para desenvolver os exercícios, certo? Agora, para desenvolver os projetos, você deverá seguir as instruções a seguir. Fique atento a cada passo, e se tiver qualquer dúvida, nos envie por _Slack_! #vqv 🚀",
+  "main": "index.js",
+  "scripts": {
+    "install-back": "npm --prefix backend/ install",
+    "start-back": "npm --prefix backend/ run start&",
+    "install-front": "npm --prefix frontend/ install",
+    "start-front": "npm --prefix frontend/ run start&",
+    "drop": "cd backend/ && npx sequelize-cli db:drop $",
+    "seed": "cd backend/ && npx sequelize-cli db:seed:all $",
+    "prestart": "cd backend/ && npx sequelize-cli db:create && npx sequelize-cli db:migrate $",
+    "start": "npm run install-back && npm run install-front && npm run start-back && npm run start-front",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+   
+  },
+  "devDependencies": {
+ 
+  }
+}
