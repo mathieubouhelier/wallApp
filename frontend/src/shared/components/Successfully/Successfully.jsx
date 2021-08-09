@@ -2,7 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 
-const RegisteredSuccessfully = () => {
+const Successfully = (props) => {
+  const message = props.location.state ? props.location.state.message : ""
   const history = useHistory();
   function handleClick(event) {
     history.push('/wall')
@@ -12,7 +13,7 @@ const RegisteredSuccessfully = () => {
     <div className="container">
       <div className="simple-login-container">
         <div className="col text-center">
-          <h2>Registration completed successfully</h2>
+          <h2>{message}</h2>
           <div >
             <button
               className="btn btn-block btn-login my-3 col-md-12 "
@@ -29,4 +30,4 @@ const RegisteredSuccessfully = () => {
   )
 }
 
-export default RegisteredSuccessfully;
+export default Successfully;

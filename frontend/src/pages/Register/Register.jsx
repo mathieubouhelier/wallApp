@@ -12,7 +12,7 @@ const Register = () => {
 
   const [user, setUser] = useState({
     email: '',
-    name:'',
+    name: '',
     password: '',
     passwordConfirmation: '',
   });
@@ -26,7 +26,10 @@ const Register = () => {
   async function SendRegisteredDataToManager() {
     const response = await RegisterManager.logTheUser(user);
     if (response.status === 201) {
-      history.push('/registeredsuccessfully')
+      history.push({
+        pathname: '/successfully',
+        state: { message: "Registration completed successfully", }
+      });
     }
     setErrorMessageRegister(response.data.message);
   }
@@ -64,7 +67,7 @@ const Register = () => {
             Enter your email address to create an account.
           </h2>
           {errorMessageRegister && <h2> {errorMessageRegister}</h2>}
-          
+
           <Input
             inputType="name"
             inputValid={nameValid || user.name === ""}
@@ -75,28 +78,28 @@ const Register = () => {
             inputValid={emailValid || user.email === ""}
             onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
           />
-         
-          <Input 
+
+          <Input
             inputType="password"
             inputValid={(passwordValid || user.password === "")}
             onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
           />
-         
+
           <Input
             inputType="passwordConfirmation"
             inputValid={(passwordConfirmationValid || user.passwordConfirmation === "")}
             onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
           />
           <div className="col text-center mt-5">
-              <button
-                className="btn btn-block btn-login my-3 col-md-12 "
-                type="button"
-                data-testid="sign-btn"
-                disabled={!emailValid || !passwordValid}
-                onClick={handleClick}
-              >
-                Sing in
-              </button>
+            <button
+              className="btn btn-block btn-login my-3 col-md-12 "
+              type="button"
+              data-testid="sign-btn"
+              disabled={!emailValid || !passwordValid}
+              onClick={handleClick}
+            >
+              Sing in
+            </button>
           </div>
         </div>
       </Container>

@@ -26,7 +26,10 @@ const PublishPost = (props) => {
     event.preventDefault();
     const response = await PublishManager.publishPost(post);
     if (response?.status === 201) {
-      return setErrorMessagePost('Post published successfully');
+      history.push({
+        pathname: '/successfully',
+        state: { message: "Post published  successfully", }
+      });
 
     }
 
@@ -50,7 +53,7 @@ const PublishPost = (props) => {
   return (
 
     <>
-      <Header  />
+      <Header />
 
       <h1> Welcome to publish page</h1>
       {postToEdit ? <h2>You can edit your post</h2> : <h2>You can write and publish your post</h2>}
@@ -70,7 +73,7 @@ const PublishPost = (props) => {
             <Input
               inputType="content"
               inputValid={contentValid || post.content === ""}
-            value={post.content}
+              value={post.content}
               onChange={(event) => setPost({ ...post, [event.target.name]: event.target.value })}
             />
             <div className="col text-center">

@@ -12,8 +12,7 @@ import NotFound from './pages/NotFound/NotFound';
 import {checkUserAuthorization} from './services/auth';
 import Register from './pages/Register/Register';
 import PublishPost from './pages/PublishPost/PublishPost';
-import RegisteredSuccessfully from './pages/RegisteredSuccessfully/RegisteredSuccessfully';
-
+import Successfully from './shared/components/Successfully/Successfully'
 function App() {
  
     
@@ -30,10 +29,10 @@ function App() {
             checkUserAuthorization().authorized ? <PublishPost dataWall={props}/> : <Redirect to="/" />
           }
         />
-        <Route
+           <Route
           exact
-          path="/registeredsuccessfully"
-          component={RegisteredSuccessfully}
+          path="/successfully"
+          component={Successfully}
         />
         <Route path="/" component={NotFound} /> 
       </Switch>
