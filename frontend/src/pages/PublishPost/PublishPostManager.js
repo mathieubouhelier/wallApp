@@ -20,7 +20,7 @@ class PublishManager {
     if (response?.status === 201) {
       return response;
     }
-    return response.data.message
+    return response?.data.message
       ? response
       : { data: { message: 'something wrong happened' } };
   }

@@ -17,7 +17,7 @@ class RegisterManager {
       return response;
     }
     deleteFromLocalStorage('WallAppToken');
-    return response.data.message ? response : {data:{message:'something wrong happened'}};
+    return response?.data.message ? response : {data:{message:'something wrong happened'}};
   }
 }
 

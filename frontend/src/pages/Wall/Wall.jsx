@@ -28,10 +28,10 @@ const Wall = () => {
     event.preventDefault();
     async function deletePost() {
       const response = await WallManager.deleteOnePost(postId);
-      if (response.status === 204) {
+      setIsFetching(true);
+      if (response?.status === 204) {
         alert("Post successfully deleted")
       }
-      setIsFetching(true);
     }
     deletePost();
   }

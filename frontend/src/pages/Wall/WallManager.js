@@ -5,12 +5,14 @@ import { loadFromLocalStorage } from '../../services/localStorage';
 class WallManager {
   async loadAllPosts() {
     const response = await PostService.getAllPosts();
-    if (response.status === 200) {
+
+    if (response?.status === 200) {
       return response;
     }
-    return response.data.message
+    return response?.data.message
       ? response
-      : { data: { message: 'something wrong happened' } };
+      : { data: [],
+         message: 'something wrong happened'  };
   }
 
   async deleteOnePost(id) {
@@ -24,7 +26,7 @@ class WallManager {
     if (response.status === 204) {
       return response;
     }
-    return response.data.message
+    return response?.data.message
       ? response
       : { data: { message: 'something wrong happened' } };
   }

@@ -12,7 +12,6 @@ import Header from '../../components/Header/Header'
 const PublishPost = (props) => {
   const history = useHistory();
   const postToEdit = props.dataWall.location.state?.post;
-  console.log("post", postToEdit);
 
   const [post, setPost] = useState({
     title: postToEdit ? postToEdit.title : '',
@@ -26,12 +25,12 @@ const PublishPost = (props) => {
   async function handleClick(event) {
     event.preventDefault();
     const response = await PublishManager.publishPost(post);
-    if (response.status === 201) {
+    if (response?.status === 201) {
       return setErrorMessagePost('Post published successfully');
 
     }
 
-    setErrorMessagePost(response.data.message);
+    setErrorMessagePost(response?.data.message);
 
   }
   const handleClickBackToWall = (event) => {
