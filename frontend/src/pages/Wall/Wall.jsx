@@ -38,7 +38,7 @@ const Wall = () => {
   }
 
   return (
-    <Container fluid className="bg-dark text-white min-vh-100">
+    <Container fluid className="bg-dark text-white min-vh-100 w-100">
       <Header />
       {isAuthorized.authorized &&
 
@@ -52,11 +52,14 @@ const Wall = () => {
         const visible = isAuthorized.user.id === post.user.id;
         return (
           <Container className="pt-5">
+            <div class="card-group">
+
             <PostCard
               visible={visible}
               post={post}
               handleClickDeletePost={handleClickDeletePost}
             />
+              </div>
           </Container>
 
         )
