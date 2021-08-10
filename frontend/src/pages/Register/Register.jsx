@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Register.css';
 import Container from 'react-bootstrap/Container';
 import RegisterManager from './RegisterManager';
 import { useHistory } from 'react-router-dom';

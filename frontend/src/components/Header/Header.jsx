@@ -1,6 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { deleteFromLocalStorage } from '../../services/localStorage';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+
 
 const Header = () => {
 
@@ -13,15 +16,20 @@ const Header = () => {
 
 
   return (
-    <>
-      <h1 className="font-link"> this is header</h1>
-      <button
-        onClick={handleClickLogout}
-      >Logout</button>
-      <button
-        onClick={() => history.push(`/`)}
-      >home</button>
-    </>
+    <Container fluid className="mb-3">
+
+    <Button  className="mt-3 col-md-1 bg-white m-2"
+          variant="Light" onClick={handleClickLogout}
+      >Logout
+
+    </Button>
+    <Button  className="mt-3 col-md-1 bg-white m-2"
+          variant="Light" onClick={() => history.push(`/`)}
+      >home
+
+    </Button>
+    
+    </Container>
   )
 }
 export default Header;

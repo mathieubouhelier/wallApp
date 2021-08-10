@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-// import './FormLogin.css';
 import Container from 'react-bootstrap/Container';
 import LoginManager from './LoginManager';
 import { useHistory } from 'react-router-dom';
 import Input from "../../shared/components/Input"
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 
 const Login = () => {
@@ -39,40 +41,32 @@ const Login = () => {
   }, [user]);
 
   return (
-    <>
-      <h1> Welcome Login component</h1>
-      <Container>
-        <div className="container">
-          <div className="simple-login-container">
-            <h2>Login</h2>
-            {errorMessageLogin && <h2> {errorMessageLogin}</h2>}
-            <Input
-              inputType="email"
-              inputValid={emailValid || user.email === ""}
-              onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
-            />
-            <Input
-              inputType="password"
-              inputValid={passwordValid || user.password === ""}
-              onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
-            />
-            <div className="col text-center">
-              <div >
-                <button
-                  className="btn btn-block btn-login my-3 col-md-12 "
-                  type="button"
-                  data-testid="signin-btn"
-                  disabled={!emailValid || !passwordValid}
-                  onClick={handleClick}
-                >
-                  Login
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </>
+    <Container fluid className="bg-dark text-white justify-content-center">
+      {errorMessageLogin && <h2> {errorMessageLogin}</h2>}
+      <Input
+        inputType="email"
+        inputValid={emailValid || user.email === ""}
+        onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
+      />
+      <Input
+        inputType="password"
+        inputValid={passwordValid || user.password === ""}
+        onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
+      />
+      <Col className="p-3" >
+      <Row className="justify-content-md-center">
+          <Button disabled={!emailValid || !passwordValid}
+            onClick={handleClick} variant="outline-light"
+            className=" my-3 col-md-3">
+            Login
+
+
+          </Button>{' '}
+    
+     </Row>
+        </Col>
+
+    </Container>
   )
 }
 

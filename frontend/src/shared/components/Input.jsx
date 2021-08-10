@@ -9,8 +9,8 @@ const Input = ({ className, name, type, dataTestid, placeholder, value, onChange
 
 
   return (
-    <div className="row mt-3">
-      <div className="col-md-12 form-group">
+    <div className="row mt-4 justify-content-center ">
+      <div className="col-md-4 form-group">
         <input
           className={className ? `${className}` : inputConstants[TypeOfInput].className}
           name={name ? name : inputConstants[TypeOfInput].name}

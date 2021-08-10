@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import './publishPost.css';
 import Container from 'react-bootstrap/Container';
 import { useHistory } from 'react-router-dom';
 import Input from "../../shared/components/Input";

@@ -2,6 +2,11 @@ import React from 'react';
 import Login from '../../components/login/Login'
 import { deleteFromLocalStorage } from '../../services/localStorage';
 import { useHistory } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+
 
 const Home = () => {
   const history = useHistory();
@@ -12,37 +17,35 @@ const Home = () => {
   }
 
   return (
-    <>
-      <h1> Welcome Home page</h1>
+    <Container fluid className="bg-dark text-white vh-100 ">
+      <div class="row text-center chalk-font py-5">
+        <h1 >The Wall App</h1>
+      </div>
       <Login />
-      <div className="container">
-          <div className="simple-login-container">
-      <div>
-        <button
-          className="btn btn-block btn-register mt-5 col-md-12"
-          type="button"
-          data-testid="no-account-btn"
-          onClick={() => history.push('/register')}
-        >
-          {' '}
-          Register
-        </button>
-      </div>
-      <div>
-        <button
-          className="btn btn-block btn-register mt-3 col-md-12"
-          type="button"
-          data-testid="no-account-btn"
-          onClick={() => history.push('/wall')}
-          onClick={handleClickVisitor}
-        >
-          {' '}
-          Enter as a visitor
-        </button>
-      </div>
-      </div>
-      </div>
-    </>
+      <Col className="p-3" >
+        <Row className="justify-content-md-center">
+          <Button
+            className="mt-3 col-md-3 bg-white "
+            variant="Light"
+            onClick={() => history.push('/register')}
+          >
+            {' '}
+            Register
+          </Button>
+        </Row>
+        <Row className="justify-content-md-center">
+          <Button
+            className="mt-3 col-md-3 light bg-white "
+            variant="Light"
+            data-testid="no-account-btn"
+            onClick={handleClickVisitor}
+          >
+            {' '}
+            Enter as a visitor
+          </Button>
+        </Row>
+      </Col>
+    </Container>
   )
 }
 
