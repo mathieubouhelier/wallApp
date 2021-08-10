@@ -1,32 +1,30 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { Container, Col, Row, Button } from 'react-bootstrap';
+import Header from '../../../components/Header/Header'
+
 
 
 const Successfully = (props) => {
   const message = props.location.state ? props.location.state.message : ""
   const history = useHistory();
-  function handleClick(event) {
+  function handleClick() {
     history.push('/wall')
   }
 
   return (
-    <div className="container">
-      <div className="simple-login-container">
-        <div className="col text-center">
-          <h2>{message}</h2>
-          <div >
-            <button
-              className="btn btn-block btn-login my-3 col-md-12 "
-              type="button"
-              onClick={handleClick}
-            >
-              Wall
-            </button>
-          </div>
-          <h3>Click to the button to access to the Wall</h3>
-        </div>
+    <Container fluid className="bg-dark text-white min-vh-100 text-center">
+      <Header />
+      <div class="row text-center chalk-font py-4">
+        <h2>{message}</h2>
       </div>
-    </div>
+      <Button className="mt-3 col-md-2 bg-white m-2"
+        variant="Light"
+        onClick={handleClick}
+      >Back to the Wall</Button>
+    </Container>
+
+
   )
 }
 
