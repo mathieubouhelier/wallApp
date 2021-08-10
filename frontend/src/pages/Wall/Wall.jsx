@@ -4,10 +4,8 @@ import WallManager from './WallManager';
 import { checkUserAuthorization } from '../../services/auth';
 import PostCard from '../../components/PostCard/PostCard';
 import Header from '../../components/Header/Header'
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Container, Button } from 'react-bootstrap';
+
 
 
 const Wall = () => {
@@ -40,13 +38,13 @@ const Wall = () => {
   }
 
   return (
-    <Container fluid className="bg-dark text-white vh-100 ">
+    <Container fluid className="bg-dark text-white min-vh-100">
       <Header />
-      {isAuthorized.authorized && 
-      
-      <Button className="m-3 Montez-font" variant="outline-light" 
-      onClick={() => history.push(`/publish`)}>
-       Write a new Post</Button>
+      {isAuthorized.authorized &&
+
+        <Button className="m-3 Montez-font" variant="outline-light"
+          onClick={() => history.push(`/publish`)}>
+          Write a new Post</Button>
 
       }
       {isFetching && <h2>Loading</h2>}
@@ -54,12 +52,12 @@ const Wall = () => {
         const visible = isAuthorized.user.id === post.user.id;
         return (
           <Container className="pt-5">
-          <PostCard
-            visible={visible}
-            post={post}
-            handleClickDeletePost={handleClickDeletePost}
-          />
-    </Container>
+            <PostCard
+              visible={visible}
+              post={post}
+              handleClickDeletePost={handleClickDeletePost}
+            />
+          </Container>
 
         )
       })}

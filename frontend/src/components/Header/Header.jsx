@@ -4,7 +4,6 @@ import { deleteFromLocalStorage } from '../../services/localStorage';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-
 const Header = () => {
 
   function handleClickLogout(event) {
@@ -14,21 +13,17 @@ const Header = () => {
   }
   const history = useHistory();
 
-
   return (
-    <Container fluid className="mb-3">
+    <Container fluid className="bg-dark text-white mp-3">
 
-    <Button  className="mt-3 col-md-1 bg-white m-2"
-          variant="Light" onClick={handleClickLogout}
+      <Button className="mt-3 col-md-1 bg-white m-2"
+        variant="Light" onClick={handleClickLogout}
       >Logout
-
-    </Button>
-    <Button  className="mt-3 col-md-1 bg-white m-2"
-          variant="Light" onClick={() => history.push(`/`)}
+      </Button>
+      <Button className="mt-3 col-md-1 bg-white m-2"
+        variant="Light" onClick={() => history.push(`/`)}
       >home
-
-    </Button>
-    
+      </Button>
     </Container>
   )
 }

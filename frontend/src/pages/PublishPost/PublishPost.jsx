@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
+import { Container, Col, Row, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Input from "../../shared/components/Input";
 import PublishManager from './PublishPostManager';
@@ -54,55 +54,48 @@ const PublishPost = (props) => {
     <>
       <Header />
 
-      <h1> Welcome to publish page</h1>
-      {postToEdit ? <h2>You can edit your post</h2> : <h2>You can write and publish your post</h2>}
 
-      <Container>
-
-        <div className="container">
-          <div className="simple-login-container">
-            <h2>Publish</h2>
-            {errorMessagePost && <h2> {errorMessagePost}</h2>}
-            <Input
-              inputType="title"
-              inputValid={titleValid || post.title === ""}
-              value={post.title}
-              onChange={(event) => setPost({ ...post, [event.target.name]: event.target.value })}
-            />
-            <Input
-              inputType="content"
-              inputValid={contentValid || post.content === ""}
-              value={post.content}
-              onChange={(event) => setPost({ ...post, [event.target.name]: event.target.value })}
-            />
-            <div className="col text-center">
-              <div >
-                <button
-                  className="btn btn-block btn-login my-3 col-md-12 "
-                  type="button"
-                  data-testid="signin-btn"
-                  disabled={!titleValid || !contentValid}
-                  onClick={handleClick}
-                >
-                  Publish
-                </button>
-              </div>
-              <div >
-                <button
-                  className="btn btn-block btn-login my-3 col-md-12 "
-                  type="button"
-                  data-testid="signin-btn"
-                  onClick={handleClickBackToWall}
-                >
-                  Back to the Wall
-                </button>
-              </div>
-            </div>
-          </div>
+      <Container fluid className="bg-dark text-white min-vh-100 text-center">
+        <div class="row text-center chalk-font py-4">
+          {postToEdit ? <h2>You can edit your post</h2> : <h2>You can write and publish your post</h2>}
         </div>
+        {errorMessagePost && <h2> {errorMessagePost}</h2>}
+        <Row className="justify-content-center px-2">
+          <Button className="mt-3 col-md-2 bg-white m-2"
+            variant="Light" disabled={!titleValid || !contentValid}
+            onClick={handleClick}
+          >Publish</Button>
+          <Button className="mt-3 col-md-2 bg-white m-2"
+            variant="Light"
+            onClick={handleClickBackToWall}
+          >Back to the Wall</Button>
+        </Row>
 
+        <Input
+          inputType="title"
+          inputValid={titleValid || post.title === ""}
+          value={post.title}
+          onChange={(event) => setPost({ ...post, [event.target.name]: event.target.value })}
+        />
+      <Container className="justify-content-center">
+        <Row className=" mt-4">
+        {(!contentValid || post.content === "" )? 
+        <small id="emailHelp" className="form-text text-danger">Your must have a least 10 characters</small> : 
+        <small>  </small>}
+        </Row>
+        <Row className=" mt-4">
+        <textarea 
+        className="col"
+        inputType="content"
+        name="content"
+          inputValid={contentValid || post.content === ""}
+          value={post.content}
+          placeholder="Write your post"
+          onChange={(event) => setPost({ ...post, [event.target.name]: event.target.value })}
+          />
+          </Row>
+          </Container>
       </Container>
-
     </>
   )
 }
