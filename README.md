@@ -8,3 +8,5 @@ ToDo
 [] add page edit 
   * load the content and title and do not send empty
 [] add page publish post (whti autorization!)  
+[] check all return code of swagger and error message...
+[X] check if delete wrong one error message title is missing

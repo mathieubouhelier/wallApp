@@ -19,7 +19,6 @@ const getAllPost = async (req, res) => {
 
 const addPost = async (req, res) => {
   try {
-    console.log("body", req.body);
     const { title, content } = req.body;
     const { id } = req.userData;
     const post = { title, content, userId: id };

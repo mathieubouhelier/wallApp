@@ -36,6 +36,7 @@ const loginDataValidation = async (req, res, next) => {
 };
 
 const emailAlreadyExist = async (req, res, next) => {
+  console.log("emailAlreadyExist", req.body);
   const { email } = req.body;
   const emailFromDB = await User.findOne({ where: { email } });
   if (emailFromDB) {

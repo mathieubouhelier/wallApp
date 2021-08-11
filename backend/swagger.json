@@ -15,6 +15,10 @@
     {
       "name": "Users",
       "description": "API for users"
+    },
+    {
+      "name": "Posts",
+      "description": "API for Posts"
     }
   ],
   "schemes": ["http"],
@@ -30,9 +34,10 @@
           {
             "name": "user",
             "in": "body",
-            "description": "To register a new user",
+            "description": "To Register",
+            "required": true,
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/UserToRegister"
             }
           }
         ],
@@ -41,15 +46,123 @@
           "201": {
             "description": "User registered with success!",
             "schema": {
-              "$ref": "#/definitions/UserResponse"
+              "$ref": "#/definitions/UserToRegisterResponse"
             }
           }
         }
       }
+    },
+    "/user/login": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Used to login",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "To login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLogin"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": "Login with success!",
+            "schema": {
+              "$ref": "#/definitions/UserLoginResponse"
+            }
+          }
+        }
+      }
+    },
+    "/post": {
+      "get": {
+        "tags": ["Posts"],
+        "description": "To get all Posts",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Login with success!",
+            "schema": {
+              "$ref": "#/definitions/GetAllPostsResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Posts"],
+        "description": "Post a new post",
+        "parameters": [
+          {
+            "name": "post",
+            "in": "body",
+            "description": "To post",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/post"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/PostResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/post/postId": {
+      "delete": {
+        "tags": ["Posts"],
+        "description": "Delete a post",
+        "produces": ["application/json"],
+        "responses": {
+          "204": {}
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+
+    "put": {
+      "tags": ["Posts"],
+      "description": "Post a new post",
+      "produces": ["application/json"],
+      "responses": {
+        "204": {
+          "schema": {
+            "$ref": "#/definitions/PutPostResponse"
+          }
+        }
+      },
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ]
     }
   },
+
   "definitions": {
-    "User": {
+    "UserToRegister": {
       "required": ["user_name", "_id", "email", "user_password"],
       "properties": {
         "user_name": {
@@ -63,19 +176,118 @@
         }
       }
     },
-    "UserResponse": {
-      "required": ["user_name", "_id", "email", "user_password"],
+    "UserToRegisterResponse": {
+      "type": "object",
       "properties": {
-        "user": {
-          "user_name": "John Doe",
-          "email": "jodo2@gmail.com"
+        "message": {
+          "type": "User registered with success!"
         },
+        "user": {
+          "type": "object",
+          "properties": {
+            "user_name": {
+              "type": "John Doe"
+            },
+            "email": {
+              "type": "jodo25@gmail.com"
+            }
+          }
+        },
+        "token": {
+          "type": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcl9uYW1lI"
+        }
+      }
+    },
+    "UserLogin": {
+      "required": ["_id", "email", "user_password"],
+      "properties": {
         "email": {
           "type": "string"
         },
         "user_password": {
           "type": "string"
         }
+      }
+    },
+    "UserLoginResponse": {
+      "required": ["token"],
+      "properties": {
+        "token": {
+          "type": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcl9uYW1lIjoiSm9obiBEb2UiLCJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiY3JlYXRlZEF0IjoiMjAyMS0wOC0wOFQwMzowNToxMy4wMDBaIiwidXBkYXRlZEF0IjoiMjAyMS0wOC0wOFQwMzowNToxMy4wMDBaIiwiaWF0IjoxNjI4NDAxNzcwLCJleHAiOjE2Mjg0ODgxNzB9.lINQE7NVKIsnxTP0pwQ_n4OU8tpEq28IYKMBkyanMjI"
+        }
+      }
+    },
+
+    "GetAllPostsResponse": {
+      "properties": {
+        "id": {
+          "type": "1"
+        },
+        "title": {
+          "type": "First Post"
+        },
+        "content": {
+          "type": "starting posting on the Wall"
+        },
+        "userId": {
+          "type": "2"
+        },
+        "published": {
+          "type": "2021-08-01T19:58:00.000Z"
+        },
+        "updated": {
+          "type": "2021-08-01T19:58:51.000Z"
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "user_name": {
+              "type": "John Doe"
+            },
+            "email": {
+              "type": "jodo25@gmail.com"
+            },
+            "createdAt": {
+              "type": "2021-08-01T19:58:00.000Z"
+            },
+            "updatedAt": {
+              "type": "2021-08-01T19:58:51.000Z"
+            }
+          }
+        }
+      }
+    },
+    "PostResponse": {
+      "properties": {
+        "title": {
+          "type": "y first Post"
+        },
+        "content": {
+          "type": "The whole text for the blog post goes here in this key"
+        },
+        "userId": {
+          "type": "2"
+        }
+      }
+    },
+    "Post": {
+      "properties": {
+        "title": {
+          "type": "y first Post"
+        },
+        "content": {
+          "type": "The whole text for the blog post goes here in this key"
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
