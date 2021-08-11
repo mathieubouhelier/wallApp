@@ -270,7 +270,7 @@
         }
       }
     },
-    "Post": {
+    "post": {
       "properties": {
         "title": {
           "type": "y first Post"

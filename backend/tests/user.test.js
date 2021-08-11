@@ -22,13 +22,17 @@ afterAll(async () => {
   sequelize.close();
 });
 
-beforeEach(async () => {
+beforeAll(async () => {
   shell.exec('npx sequelize-cli db:drop');
   shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate $');
+});
+
+beforeEach(async () => {
   shell.exec('npx sequelize-cli db:seed:all $');
 });
+
 describe('Tests the endpoint `/users`', () => {
-  it.skip('It is possible to post e new user', async () => {
+  it('It is possible to post e new user', async () => {
     const getAllUsersQuery = readFileSync(
       './tests/sqlQueryTests/getAllUsers.sql',
       'utf8',
@@ -43,8 +47,8 @@ describe('Tests the endpoint `/users`', () => {
       })
       .expect('status', 201)
       .then((response) => {
-        const { json } = response;
-        expect(json.token).not.toBeNull();
+        const { body } = response;
+        expect(body.token).not.toBeNull();
       });
 
     expect(await sequelize.query(getAllUsersQuery, { type: 'SELECT' })).toEqual(
@@ -52,23 +56,24 @@ describe('Tests the endpoint `/users`', () => {
     );
   });
 
-  it.skip('It will be verify that is not possible to register with a name length < 6 characters', async () => {
+  it('It will be verify that is not possible to register with a name length < 6 characters', async () => {
     await frisby
       .post(`${url}/user/register`, {
         user_name: 'user4',
-        email: 'user4@gmail.com',
+        email: 'user44@gmail.com',
         user_password: '444444',
       })
       .expect('status', 400)
       .then((response) => {
-        const { json } = response;
-        expect(json.message).toBe(
+        const { body } = response;
+        const result = JSON.parse(body);
+        expect(result.message).toBe(
           'child \"user_name\" fails because [\"user_name\" length must be at least 8 characters long]',
         );
       });
   });
 
-  it.skip('It will be verify that is not possible to register with email with a wrong format ', async () => {
+  it('It will be verify that is not possible to register with email with a wrong format ', async () => {
     await frisby
       .post(`${url}/user/register`, {
         user_name: 'user4ForTest',
@@ -77,22 +82,24 @@ describe('Tests the endpoint `/users`', () => {
       })
       .expect('status', 400)
       .then((response) => {
-        const { json } = response;
-        expect(json.message).toBe('child \"email\" fails because [\"email\" must be a valid email]');
+        const { body } = response;
+        const result = JSON.parse(body);
+        expect(result.message).toBe('child \"email\" fails because [\"email\" must be a valid email]');
       });
   });
 
-  it.skip('It will be verify that is not possible to register with password with a wrong format ', async () => {
+  it('It will be verify that is not possible to register with password with a wrong format ', async () => {
     await frisby
       .post(`${url}/user/register`, {
         user_name: 'user4ForTest',
-        email: 'user4@gmail.com',
+        email: 'user42@gmail.com',
         user_password: '444',
       })
       .expect('status', 400)
       .then((response) => {
-        const { json } = response;
-        expect(json.message).toBe(
+        const { body } = response;
+        const result = JSON.parse(body);
+        expect(result.message).toBe(
           'child \"user_password\" fails because [\"user_password\" length must be 6 characters long]',
         );
       });
@@ -100,7 +107,7 @@ describe('Tests the endpoint `/users`', () => {
 });
 
 describe('Tests the endpoint `/login`', () => {
-  it.skip('It is possible to login successfully', async () => {
+  it('It is possible to login successfully', async () => {
     await frisby
       .post(`${url}/user/login`, {
         email: 'johndoe@gmail.com',
@@ -109,76 +116,78 @@ describe('Tests the endpoint `/login`', () => {
       .expect('status', 201)
       .then((response) => {
         const { body } = response;
-        const result = JSON.parse(body);
-        expect(result.token).not.toBeNull();
+        expect(response.token).not.toBeNull();
       });
   });
 
-  it.skip('It will be verify that is not possible to login with empty email', async () => {
+  it('It will be verify that is not possible to login with empty email', async () => {
     await frisby
-      .post(`${url}/users/login`, {
+      .post(`${url}/user/login`, {
         email: '',
         user_password: '123456',
       })
-      .expect('status', 400) //400?????
+      .expect('status', 400) 
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
-        expect(result.message).toBe('"email" is required');
+        expect(result.message).toBe('child \"email\" fails because [\"email\" is not allowed to be empty]');
       });
   });
 
-  it.skip('It will be verify that is not possible to login with empty password', async () => {
+  it('It will be verify that is not possible to login with empty password', async () => {
     await frisby
-      .post(`${url}/users/login`, {
+      .post(`${url}/user/login`, {
         email: 'johndoe@gmail.com',
         user_password: '',
       })
-      .expect('status', 400) //400?????
+      .expect('status', 400) 
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
-        expect(result.message).toBe('"password" is required');
+
+        expect(result.message).toBe('child \"user_password\" fails because [\"user_password\" is not allowed to be empty]');
       });
   });
 
-  it.skip('It will be verify that is not possible to login without password field', async () => {
+  it('It will be verify that is not possible to login without password field', async () => {
     await frisby
-      .post(`${url}/users/login`, {
+      .post(`${url}/user/login`, {
         email: 'johndoe@gmail.com',
       })
-      .expect('status', 400) //400?????
+      .expect('status', 400) 
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
-        expect(result.message).toBe('"password" is required');
+        expect(result.message).toBe('child \"user_password\" fails because [\"user_password\" is required]');
       });
   });
 
-  it.skip('It will be verify that is not possible to login with an non existing user', async () => {
+  it('It will be verify that is not possible to login with an non existing user', async () => {
     await frisby
-      .post(`${url}/users/login`, {
+      .post(`${url}/user/login`, {
         email: 'notexistingusar@gmail.com',
       })
-      .expect('status', 400) //400?????
+      .expect('status', 400) 
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
-        expect(result.message).toBe('"Invalid login and/or password');
+
+        expect(result.message).toBe('child \"user_password\" fails because [\"user_password\" is required]');
       });
   });
 
-  it.skip('It will be verify that is not possible to login with a wrong password', async () => {
+  it('It will be verify that is not possible to login with a wrong password', async () => {
     await frisby
-      .post(`${url}/users/login`, {
+      .post(`${url}/user/login`, {
         email: 'johndoe@gmail.com',
         user_password: '12121212',
       })
-      .expect('status', 400) //400?????
+      .expect('status', 400) 
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
-        expect(result.message).toBe('"Invalid login and/or password');
+
+        expect(result.message).toBe('Invalid login and/or password');
       });
   });
 });

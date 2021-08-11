@@ -3,7 +3,7 @@ const getAllPostsReturn = [
     id: 1,
     title: 'First Post',
     content: 'starting posting on the Wall',
-    userId: 1,
+    userId: 2,
   },
   {
     id: 2,

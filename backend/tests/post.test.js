@@ -21,13 +21,16 @@ afterAll(async () => {
   sequelize.close();
 });
 
-beforeEach(async () => {
+beforeAll(async () => {
   shell.exec('npx sequelize-cli db:drop');
   shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate $');
+});
+
+beforeEach(async () => {
   shell.exec('npx sequelize-cli db:seed:all $');
 });
 describe('Tests the endpoint `/post`', () => {
-  it.skip('It is possible to post e new Post', async () => {
+  it('It is possible to post e new Post', async () => {
     const challengeQuery = readFileSync(
       './tests/sqlQueryTests/getAllPosts.sql',
       'utf8',
@@ -100,7 +103,7 @@ describe('Tests the endpoint `/post`', () => {
         title: 'The 3thd one',
         content: 'again posting',
       })
-      .expect('status', 201)
+      .expect('status', 200)
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
@@ -116,7 +119,7 @@ describe('Tests the endpoint `/post`', () => {
 
   });
 
-  it.skip('It is not possible to post e new Post with a blank title', async () => {
+  it('It is not possible to post e new Post with a blank title', async () => {
     await frisby
       .post(`${url}/user/login`, {
         email: 'johndoe@gmail.com',
@@ -146,7 +149,7 @@ describe('Tests the endpoint `/post`', () => {
       .then((response) => {
         const { json } = response;
         expect(json.message).toBe(
-          'child "content" fails because ["content" is not allowed to be empty]',
+          'child \"title\" fails because [\"title\" is not allowed to be empty]',
         );
       });
   });
@@ -186,7 +189,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it.skip('It is not possible to post without token', async () => {
+  it('It is not possible to post without token', async () => {
     await frisby
       .post(`${url}/post`, {
         title: 'The 3thd one',
@@ -199,7 +202,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it.skip('It is not possible to post with a wrong token', async () => {
+  it('It is not possible to post with a wrong token', async () => {
     await frisby
       .setup({
         request: {
@@ -220,7 +223,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it.skip('It is possible to delete a Post ', async () => {
+  it('It is possible to delete a Post ', async () => {
     let token;
     await frisby
       .post(`${url}/user/login`, {
@@ -247,7 +250,7 @@ describe('Tests the endpoint `/post`', () => {
       .expect('status', 204);
   });
 
-  it.skip('It is not possible to delete a Post with logged user different of the one who created it', async () => {
+  it('It is not possible to delete a Post with logged user different of the one who created it', async () => {
     let token;
     await frisby
       .post(`${url}/user/login`, {
@@ -278,7 +281,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it.skip('It is not possible to delete a non existing Post', async () => {
+  it('It is not possible to delete a non existing Post', async () => {
     let token;
     await frisby
       .post(`${url}/user/login`, {
@@ -309,7 +312,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it.skip('It is not possible to delete a Post with empty token', async () => {
+  it('It is not possible to delete a Post with empty token', async () => {
     let token;
     await frisby
       .post(`${url}/user/login`, {
@@ -335,7 +338,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it.skip('It is not possible to delete a Post with a wrong token', async () => {
+  it('It is not possible to delete a Post with a wrong token', async () => {
     let token;
     await frisby
       .post(`${url}/user/login`, {
@@ -361,7 +364,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it.skip('It should be possible to edit a Post ', async () => {
+  it('It should be possible to edit a Post ', async () => {
     let token;
     await frisby
       .post(`${url}/user/login`, {
@@ -384,14 +387,14 @@ describe('Tests the endpoint `/post`', () => {
           },
         },
       })
-      .put(`${url}/post/1`, {
+      .put(`${url}/1`, {
         title: 'post (edited)',
         content: 'Post edited ....',
       })
       .expect('status', 204);
   });
 
-  it.skip('It should be not possible to edit a Post logged with user different the one who create this post', async () => {
+  it('It should be not possible to edit a Post logged with user different the one who create this post', async () => {
     let token;
     await frisby
       .post(`${url}/user/login`, {
@@ -425,7 +428,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it.skip('It should be not possible to edit a Post a Post with empty token', async () => {
+  it('It should be not possible to edit a Post a Post with empty token', async () => {
     let token;
     await frisby
       .post(`${url}/user/login`, {
@@ -454,7 +457,7 @@ describe('Tests the endpoint `/post`', () => {
       });
   });
 
-  it.skip('It should be not possible to edit a Post with a wrong token', async () => {
+  it('It should be not possible to edit a Post with a wrong token', async () => {
     let token;
     await frisby
       .post(`${url}/user/login`, {
