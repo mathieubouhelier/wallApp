@@ -48,6 +48,9 @@
             "schema": {
               "$ref": "#/definitions/UserToRegisterResponse"
             }
+          },
+          "400": {
+            "description": ""
           }
         }
       }
@@ -74,6 +77,9 @@
             "schema": {
               "$ref": "#/definitions/UserLoginResponse"
             }
+          },
+          "400": {
+            "description": "Invalid login and/or password"
           }
         }
       }
@@ -89,6 +95,9 @@
             "schema": {
               "$ref": "#/definitions/GetAllPostsResponse"
             }
+          },
+          "500": {
+            "description": "Error to get all posts"
           }
         },
         "security": [
@@ -117,6 +126,13 @@
             "schema": {
               "$ref": "#/definitions/PostResponse"
             }
+          },
+          "400": {},
+          "401": {
+            "description": "missing auth token/jwt malformed"
+          },
+          "500": {
+            "description": "Error to get all posts"
           }
         },
         "security": [
@@ -132,7 +148,41 @@
         "description": "Delete a post",
         "produces": ["application/json"],
         "responses": {
-          "204": {}
+          "204": { "description ": "Post successfully deleted" },
+          "400": {},
+          "401": {
+            "description": "user not granted/missing auth token/jwt malformed"
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Error to delete the post"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": ["Posts"],
+        "description": "Post a new post",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/postPutResponse"
+            },
+            "400": {},
+            "401": {
+              "description": "user not granted/missing auth token/jwt malformed"
+            },
+            "500": {
+              "description": "Error to update a post"
+            }
+          }
         },
         "security": [
           {
@@ -140,24 +190,6 @@
           }
         ]
       }
-    },
-
-    "put": {
-      "tags": ["Posts"],
-      "description": "Post a new post",
-      "produces": ["application/json"],
-      "responses": {
-        "204": {
-          "schema": {
-            "$ref": "#/definitions/PutPostResponse"
-          }
-        }
-      },
-      "security": [
-        {
-          "bearerAuth": []
-        }
-      ]
     }
   },
 
@@ -186,15 +218,18 @@
           "type": "object",
           "properties": {
             "user_name": {
-              "type": "John Doe"
+               "type": "string",
+          "example": "John Doe"
             },
             "email": {
-              "type": "jodo25@gmail.com"
+              "type": "string",
+              "example": "jodo25@gmail.com"
             }
           }
         },
         "token": {
-          "type": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcl9uYW1lI"
+          "type": "string",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcl9uYW1lI"
         }
       }
     },
@@ -213,7 +248,8 @@
       "required": ["token"],
       "properties": {
         "token": {
-          "type": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcl9uYW1lIjoiSm9obiBEb2UiLCJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiY3JlYXRlZEF0IjoiMjAyMS0wOC0wOFQwMzowNToxMy4wMDBaIiwidXBkYXRlZEF0IjoiMjAyMS0wOC0wOFQwMzowNToxMy4wMDBaIiwiaWF0IjoxNjI4NDAxNzcwLCJleHAiOjE2Mjg0ODgxNzB9.lINQE7NVKIsnxTP0pwQ_n4OU8tpEq28IYKMBkyanMjI"
+          "type": "string",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcl9uYW1lIjoiSm9obiBEb2UiLCJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiY3JlYXRlZEF0IjoiMjAyMS0wOC0wOFQwMzowNToxMy4wMDBaIiwidXBkYXRlZEF0IjoiMjAyMS0wOC0wOFQwMzowNToxMy4wMDBaIiwiaWF0IjoxNjI4NDAxNzcwLCJleHAiOjE2Mjg0ODgxNzB9.lINQE7NVKIsnxTP0pwQ_n4OU8tpEq28IYKMBkyanMjI"
         }
       }
     },
@@ -221,37 +257,47 @@
     "GetAllPostsResponse": {
       "properties": {
         "id": {
-          "type": "1"
+          "type": "string",
+          "example": "1"
         },
         "title": {
-          "type": "First Post"
+          "type": "string",
+          "example": "First Post"
         },
         "content": {
-          "type": "starting posting on the Wall"
+          "type": "string",
+          "example": "starting posting on the Wall"
         },
         "userId": {
-          "type": "2"
+          "type": "string",
+          "example": "2"
         },
         "published": {
-          "type": "2021-08-01T19:58:00.000Z"
+          "type": "string",
+          "example": "2021-08-01T19:58:00.000Z"
         },
         "updated": {
-          "type": "2021-08-01T19:58:51.000Z"
+          "type": "string",
+          "example": "2021-08-01T19:58:51.000Z"
         },
         "user": {
           "type": "object",
           "properties": {
             "user_name": {
-              "type": "John Doe"
+              "type": "string",
+              "example": "John Doe"
             },
             "email": {
-              "type": "jodo25@gmail.com"
+              "type": "string",
+              "example": "jodo25@gmail.com"
             },
             "createdAt": {
-              "type": "2021-08-01T19:58:00.000Z"
+              "type": "string",
+              "example": "2021-08-01T19:58:00.000Z"
             },
             "updatedAt": {
-              "type": "2021-08-01T19:58:51.000Z"
+              "type": "string",
+              "example": "2021-08-01T19:58:51.000Z"
             }
           }
         }
@@ -260,23 +306,40 @@
     "PostResponse": {
       "properties": {
         "title": {
-          "type": "y first Post"
+          "type": "string",
+          "example": "My first Post"
         },
         "content": {
-          "type": "The whole text for the blog post goes here in this key"
+           "type": "string",
+          "example": "The whole text for the blog post goes here in this key"
         },
         "userId": {
-          "type": "2"
+           "type": "string",
+          "example": "2"
         }
       }
     },
     "post": {
       "properties": {
         "title": {
-          "type": "y first Post"
+           "type": "string",
+          "example": "My first Post"
         },
         "content": {
-          "type": "The whole text for the blog post goes here in this key"
+           "type": "string",
+          "example": "The whole text for the blog post goes here in this key"
+        }
+      }
+    },
+    "postPutResponse": {
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "My first Post"
+        },
+        "content": {
+          "type": "string",
+          "example": "The whole text for the blog post goes here in this key"
         }
       }
     }

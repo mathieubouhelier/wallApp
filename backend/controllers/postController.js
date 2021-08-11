@@ -54,21 +54,27 @@ const deletePost = async (req, res) => {
 };
 
 const editPost = async (req, res) => {
-  const { title, content } = req.body;
-  const userId = req.userData.id;
-  const postId = req.params.id;
-  const post = { title, content, userId: id };
+  try{
 
-  const product = await Posts.findByPk(postId, {
-    include: { model: User, as: 'user' },
-  });
-  if (userId !== product.userId) {
-    return res.status(401).json({ message: 'user not granted' });
+    const { title, content } = req.body;
+    const userId = req.userData.id;
+    const postId = req.params.id;
+    const post = { title, content, userId: id };
+    
+    const product = await Posts.findByPk(postId, {
+      include: { model: User, as: 'user' },
+    });
+    if (userId !== product.userId) {
+      return res.status(401).json({ message: 'user not granted' });
+    }
+    await Posts.update(post, {
+      where: { id: postId },
+    });
+    return res.status(200).json(post);
+  }catch (e) {
+    console.log(e.message);
+    res.status(500).send({ message: 'Error to update a post' });
   }
-  await Posts.update(post, {
-    where: { id: postId },
-  });
-  return res.status(200).json(post);
 };
 
 module.exports = { addPost, deletePost, editPost, getAllPost };

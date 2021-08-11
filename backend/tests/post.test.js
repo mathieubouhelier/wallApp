@@ -387,7 +387,7 @@ describe('Tests the endpoint `/post`', () => {
           },
         },
       })
-      .put(`${url}/1`, {
+      .put(`${url}/post/1`, {
         title: 'post (edited)',
         content: 'Post edited ....',
       })

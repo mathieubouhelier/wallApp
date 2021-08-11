@@ -10,3 +10,5 @@ ToDo
 [] add page publish post (whti autorization!)  
 [] check all return code of swagger and error message...
 [X] check if delete wrong one error message title is missing
+[] response swager all types are string ?
+[] test swagger
