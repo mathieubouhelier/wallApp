@@ -12,3 +12,6 @@ ToDo
 [X] check if delete wrong one error message title is missing
 [] response swager all types are string ?
 [] test swagger
+[] add to put test, check the data base....
+[] add to post test, check the data base....
+

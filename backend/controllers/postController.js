@@ -54,13 +54,12 @@ const deletePost = async (req, res) => {
 };
 
 const editPost = async (req, res) => {
-  try{
-
+  try {
     const { title, content } = req.body;
     const userId = req.userData.id;
     const postId = req.params.id;
-    const post = { title, content, userId: id };
-    
+    const post = { title, content, userId: userId };
+
     const product = await Posts.findByPk(postId, {
       include: { model: User, as: 'user' },
     });
@@ -71,7 +70,7 @@ const editPost = async (req, res) => {
       where: { id: postId },
     });
     return res.status(200).json(post);
-  }catch (e) {
+  } catch (e) {
     console.log(e.message);
     res.status(500).send({ message: 'Error to update a post' });
   }
