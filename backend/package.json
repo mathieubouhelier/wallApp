@@ -6,7 +6,7 @@
   "scripts": {
     "start": " nodemon index.js",
     "dev": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all $ && nodemon index.js",
-    "test": "jest --runInBand",
+    "test": "jest --coverage --runInBand",
     "start-gendoc": "node swagger.js"
   },
   "keywords": [],
