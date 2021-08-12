@@ -29,6 +29,8 @@ beforeAll(async () => {
 beforeEach(async () => {
   shell.exec('npx sequelize-cli db:seed:all $');
 });
+
+
 describe('Tests the endpoint `/post`', () => {
   it('It is possible to post e new Post', async () => {
     const challengeQuery = readFileSync(
@@ -112,11 +114,10 @@ describe('Tests the endpoint `/post`', () => {
         expect(result[0].content).toBe('starting posting on the Wall');
         expect(result[0].published).toBe('2021-08-01T19:58:00.000Z');
         expect(result[0].updated).toBe('2021-08-01T19:58:51.000Z');
-        expect(result[0].user.id).toBe(1);
-        expect(result[0].user.displayName).toBe('The 2nd one');
-        expect(result[0].user.email).toBe('lewishamilton@gmail.com');
+        expect(result[0].user.id).toBe(2);
+        expect(result[1].id).toBe(2);
+        expect(result[1].title).toBe('The 2nd one');
       });
-
   });
 
   it('It is not possible to post e new Post with a blank title', async () => {
@@ -149,7 +150,7 @@ describe('Tests the endpoint `/post`', () => {
       .then((response) => {
         const { json } = response;
         expect(json.message).toBe(
-          'child \"title\" fails because [\"title\" is not allowed to be empty]',
+          'child "title" fails because ["title" is not allowed to be empty]',
         );
       });
   });
@@ -361,198 +362,6 @@ describe('Tests the endpoint `/post`', () => {
       .then((response) => {
         const { json } = response;
         expect(json.message).toBe('jwt malformed');
-      });
-  });
-
-  it('It should be possible to edit a Post ', async () => {
-    let token;
-    await frisby
-      .post(`${url}/user/login`, {
-        email: 'johndoe@gmail.com',
-        user_password: '123456',
-      })
-      .expect('status', 201)
-      .then((response) => {
-        const { body } = response;
-        const result = JSON.parse(body);
-        token = result.token;
-      });
-
-    await frisby
-      .setup({
-        request: {
-          headers: {
-            Authorization: token,
-            'Content-Type': 'application/json',
-          },
-        },
-      })
-      .put(`${url}/post/1`, {
-        title: 'post (edited)',
-        content: 'Post edited ....',
-      })
-      .expect('status', 204);
-  });
-
-  it('It should be not possible to edit a Post logged with user different the one who create this post', async () => {
-    let token;
-    await frisby
-      .post(`${url}/user/login`, {
-        email: 'johndoe@gmail.com',
-        user_password: '123456',
-      })
-      .expect('status', 201)
-      .then((response) => {
-        const { body } = response;
-        const result = JSON.parse(body);
-        token = result.token;
-      });
-
-    await frisby
-      .setup({
-        request: {
-          headers: {
-            Authorization: token,
-            'Content-Type': 'application/json',
-          },
-        },
-      })
-      .put(`${url}/post/2`, {
-        title: 'post (edited)',
-        content: 'Post edited ....',
-      })
-      .expect('status', 401)
-      .then((response) => {
-        const { json } = response;
-        expect(json.message).toBe('user not granted');
-      });
-  });
-
-  it('It should be not possible to edit a Post a Post with empty token', async () => {
-    let token;
-    await frisby
-      .post(`${url}/user/login`, {
-        email: 'johndoe@gmail.com',
-        user_password: '123456',
-      })
-      .expect('status', 201);
-
-    await frisby
-      .setup({
-        request: {
-          headers: {
-            Authorization: '',
-            'Content-Type': 'application/json',
-          },
-        },
-      })
-      .put(`${url}/post/1`, {
-        title: 'post (edited)',
-        content: 'Post edited ....',
-      })
-      .expect('status', 401)
-      .then((response) => {
-        const { json } = response;
-        expect(json.message).toBe('missing auth token');
-      });
-  });
-
-  it('It should be not possible to edit a Post with a wrong token', async () => {
-    let token;
-    await frisby
-      .post(`${url}/user/login`, {
-        email: 'johndoe@gmail.com',
-        user_password: '123456',
-      })
-      .expect('status', 201);
-
-    await frisby
-      .setup({
-        request: {
-          headers: {
-            Authorization: 'wrongToken',
-            'Content-Type': 'application/json',
-          },
-        },
-      })
-      .put(`${url}/post/1`, {
-        title: 'post (edited)',
-        content: 'Post edited ....',
-      })
-      .expect('status', 401)
-      .then((response) => {
-        const { json } = response;
-        expect(json.message).toBe('jwt malformed');
-      });
-  });
-
-  it('It should not be possible to edit a Post with empty title', async () => {
-    let token;
-    await frisby
-      .post(`${url}/user/login`, {
-        email: 'johndoe@gmail.com',
-        user_password: '123456',
-      })
-      .expect('status', 201)
-      .then((response) => {
-        const { body } = response;
-        const result = JSON.parse(body);
-        token = result.token;
-      });
-
-    await frisby
-      .setup({
-        request: {
-          headers: {
-            Authorization: token,
-            'Content-Type': 'application/json',
-          },
-        },
-      })
-      .put(`${url}/post/1`, {
-        content: 'Post edited ....',
-      })
-      .expect('status', 400)
-      .then((response) => {
-        const { json } = response;
-        expect(json.message).toBe(
-          'child "title" fails because ["title" is required]',
-        );
-      });
-  });
-
-  it('It should not be possible to edit a Post with empty content', async () => {
-    let token;
-    await frisby
-      .post(`${url}/user/login`, {
-        email: 'johndoe@gmail.com',
-        user_password: '123456',
-      })
-      .expect('status', 201)
-      .then((response) => {
-        const { body } = response;
-        const result = JSON.parse(body);
-        token = result.token;
-      });
-
-    await frisby
-      .setup({
-        request: {
-          headers: {
-            Authorization: token,
-            'Content-Type': 'application/json',
-          },
-        },
-      })
-      .put(`${url}/post/1`, {
-        title: 'Post edited',
-      })
-      .expect('status', 400)
-      .then((response) => {
-        const { json } = response;
-        expect(json.message).toBe(
-          'child "content" fails because ["content" is required]',
-        );
       });
   });
 });

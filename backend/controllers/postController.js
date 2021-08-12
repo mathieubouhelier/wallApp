@@ -59,13 +59,18 @@ const editPost = async (req, res) => {
     const userId = req.userData.id;
     const postId = req.params.id;
     const post = { title, content, userId: userId };
-
-    const product = await Posts.findByPk(postId, {
+    console.log('userId', userId, postId);
+    const response = await Posts.findByPk(postId, {
       include: { model: User, as: 'user' },
     });
-    if (userId !== product.userId) {
+    console.log('response', response);
+    if (!response) {
+      return res.status(401).json({ message: 'Post not found' });
+    }
+    if (userId !== response.userId) {
       return res.status(401).json({ message: 'user not granted' });
     }
+    console.log('put', post);
     await Posts.update(post, {
       where: { id: postId },
     });
