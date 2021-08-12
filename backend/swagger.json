@@ -61,6 +61,17 @@
         "description": "Used to login",
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Standard Authorization header using a Token",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "user",
             "in": "body",
             "description": "To login",
@@ -88,6 +99,19 @@
       "get": {
         "tags": ["Posts"],
         "description": "To get all Posts",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Standard Authorization header using a Token",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "produces": ["application/json"],
         "responses": {
           "200": {
@@ -110,6 +134,17 @@
         "tags": ["Posts"],
         "description": "Post a new post",
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Standard Authorization header using a Token",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "post",
             "in": "body",
@@ -142,10 +177,31 @@
         ]
       }
     },
-    "/post/postId": {
+    "/post/{postId}": {
       "delete": {
         "tags": ["Posts"],
         "description": "Delete a post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Standard Authorization header using a Token",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
         "produces": ["application/json"],
         "responses": {
           "204": { "description ": "Post successfully deleted" },
@@ -169,6 +225,36 @@
       "put": {
         "tags": ["Posts"],
         "description": "Post a new post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Standard Authorization header using a Token",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "post",
+            "in": "body",
+            "description": "To post",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/post"
+            }
+          }
+        ],
         "produces": ["application/json"],
         "responses": {
           "200": {
@@ -218,8 +304,8 @@
           "type": "object",
           "properties": {
             "user_name": {
-               "type": "string",
-          "example": "John Doe"
+              "type": "string",
+              "example": "John Doe"
             },
             "email": {
               "type": "string",
@@ -310,11 +396,11 @@
           "example": "My first Post"
         },
         "content": {
-           "type": "string",
+          "type": "string",
           "example": "The whole text for the blog post goes here in this key"
         },
         "userId": {
-           "type": "integer",
+          "type": "integer",
           "example": "2"
         }
       }
@@ -322,14 +408,13 @@
     "post": {
       "properties": {
         "title": {
-           "type": "string",
+          "type": "string",
           "example": "My first Post"
         },
         "content": {
-           "type": "string",
+          "type": "string",
           "example": "The whole text for the blog post goes here in this key"
         }
-
       }
     },
     "postPutResponse": {
@@ -343,7 +428,7 @@
           "example": "The whole text for the blog post goes here in this key"
         },
         "userId": {
-           "type": "integer",
+          "type": "integer",
           "example": "2"
         }
       }

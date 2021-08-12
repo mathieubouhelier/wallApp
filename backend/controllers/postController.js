@@ -63,7 +63,6 @@ const editPost = async (req, res) => {
     const response = await Posts.findByPk(postId, {
       include: { model: User, as: 'user' },
     });
-    console.log('response', response);
     if (!response) {
       return res.status(401).json({ message: 'Post not found' });
     }
