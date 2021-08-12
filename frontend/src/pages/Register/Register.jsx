@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
+import Input from '../../shared/components/Input'
+import { Container, Button, Col, Row } from 'react-bootstrap/';
 import RegisterManager from './RegisterManager';
 import { useHistory } from 'react-router-dom';
-import Input from '../../shared/components/Input'
 
 
 const Register = () => {
@@ -54,49 +54,46 @@ const Register = () => {
   }, [user]);
 
   return (
-    <>
-      <h1> Welcome to Register component</h1>
-      <Container>
-        <div className="simple-login-container">
-          <h2>Sign up with email</h2>
-          <h2>
-            Enter your email address to create an account.
-          </h2>
-          {errorMessageRegister && <h2> {errorMessageRegister}</h2>}
-          <Input
-            inputType="name"
-            inputValid={nameValid || user.name === ""}
-            onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
-          />
-          <Input
-            inputType="email"
-            inputValid={emailValid || user.email === ""}
-            onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
-          />
-          <Input
-            inputType="password"
-            inputValid={(passwordValid || user.password === "")}
-            onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
-          />
-          <Input
-            inputType="passwordConfirmation"
-            inputValid={(passwordConfirmationValid || user.passwordConfirmation === "")}
-            onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
-          />
-          <div className="col text-center mt-5">
-            <button
-              className="btn btn-block btn-login my-3 col-md-12 "
-              type="button"
-              data-testid="sign-btn"
-              disabled={!emailValid || !passwordValid}
-              onClick={handleClick}
-            >
-              Sing in
-            </button>
-          </div>
+    <Container fluid className="bg-dark text-white justify-content-center text-center vh-100">
+      <Container className="pt-5">
+        <h2>Sign up with email</h2>
+        <h2  className="py-4">
+          Enter your email address to create an account.
+        </h2>
+        {errorMessageRegister && <h2> {errorMessageRegister}</h2>}
+        <Input
+          inputType="name"
+          inputValid={nameValid || user.name === ""}
+          onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
+        />
+        <Input
+          inputType="email"
+          inputValid={emailValid || user.email === ""}
+          onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
+        />
+        <Input
+          inputType="password"
+          inputValid={(passwordValid || user.password === "")}
+          onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
+        />
+        <Input
+          inputType="passwordConfirmation"
+          inputValid={(passwordConfirmationValid || user.passwordConfirmation === "")}
+          onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
+        />
+        <div className="col text-center mt-5">
+          <Button
+            className="mt-2 col-md-3 light bg-white rounded-pill"
+            variant="Light"
+            data-testid="sign-btn"
+            disabled={!emailValid || !passwordValid}
+            onClick={handleClick}
+          >
+            Sing in
+          </Button>
         </div>
       </Container>
-    </>
+    </Container>
   )
 }
 

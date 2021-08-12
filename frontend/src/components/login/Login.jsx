@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
+import Input from "../../shared/components/Input"
+import {Container, Button, Col, Row} from 'react-bootstrap/';
 import LoginManager from './LoginManager';
 import { useHistory } from 'react-router-dom';
-import Input from "../../shared/components/Input"
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 
 
 const Login = () => {
