@@ -9,13 +9,12 @@ import './App.css';
 import Home from './pages/Home/Home';
 import Wall from './pages/Wall/Wall';
 import NotFound from './pages/NotFound/NotFound';
-import {checkUserAuthorization} from './services/auth';
+import { checkUserAuthorization } from './services/auth';
 import Register from './pages/Register/Register';
 import PublishPost from './pages/PublishPost/PublishPost';
-import Successfully from './shared/components/Successfully'
+import Successfully from './shared/components/Successfully';
+
 function App() {
- 
-    
   return (
     <Router>
       <Switch>
@@ -26,15 +25,15 @@ function App() {
           exact
           path="/publish"
           render={(props) =>
-            checkUserAuthorization().authorized ? <PublishPost dataWall={props}/> : <Redirect to="/" />
+            checkUserAuthorization().authorized ? (
+              <PublishPost dataWall={props} />
+            ) : (
+              <Redirect to="/" />
+            )
           }
         />
-           <Route
-          exact
-          path="/successfully"
-          component={Successfully}
-        />
-        <Route path="/" component={NotFound} /> 
+        <Route exact path="/successfully" component={Successfully} />
+        <Route path="/" component={NotFound} />
       </Switch>
     </Router>
   );

@@ -9,7 +9,6 @@ const PostCard = ({ visible, post, handleClickDeletePost }) => {
 
 
   return (
-
     <Card  className="bg-dark text-white border Montez-font" >
       <Card.Body>
         <Card.Title className=" font" ><h2>{post.title}</h2></Card.Title>

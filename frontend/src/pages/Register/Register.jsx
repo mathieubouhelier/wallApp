@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 import Input from '../../shared/components/Input'
 
 
-
 const Register = () => {
   const history = useHistory();
 
@@ -55,10 +54,8 @@ const Register = () => {
   }, [user]);
 
   return (
-
     <>
       <h1> Welcome to Register component</h1>
-
       <Container>
         <div className="simple-login-container">
           <h2>Sign up with email</h2>
@@ -66,7 +63,6 @@ const Register = () => {
             Enter your email address to create an account.
           </h2>
           {errorMessageRegister && <h2> {errorMessageRegister}</h2>}
-
           <Input
             inputType="name"
             inputValid={nameValid || user.name === ""}
@@ -77,13 +73,11 @@ const Register = () => {
             inputValid={emailValid || user.email === ""}
             onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
           />
-
           <Input
             inputType="password"
             inputValid={(passwordValid || user.password === "")}
             onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
           />
-
           <Input
             inputType="passwordConfirmation"
             inputValid={(passwordConfirmationValid || user.passwordConfirmation === "")}
