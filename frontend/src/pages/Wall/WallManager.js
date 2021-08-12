@@ -4,14 +4,8 @@ import { loadFromLocalStorage } from '../../services/localStorage';
 
 class WallManager {
   async loadAllPosts() {
-    const token = await loadFromLocalStorage('WallAppToken');
 
-    if (!token) {
-      return { data: { message: 'something wrong happened' } };
-    }
-    console.log("token", token);
-    const response = await PostService.getAllPosts(token);
-console.log("response", response);
+    const response = await PostService.getAllPosts();
     if (response?.status === 200) {
       return response;
     }

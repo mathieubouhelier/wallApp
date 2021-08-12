@@ -99,19 +99,6 @@
       "get": {
         "tags": ["Posts"],
         "description": "To get all Posts",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Standard Authorization header using a Token",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "produces": ["application/json"],
         "responses": {
           "200": {
@@ -123,12 +110,7 @@
           "500": {
             "description": "Error to get all posts"
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       },
       "post": {
         "tags": ["Posts"],

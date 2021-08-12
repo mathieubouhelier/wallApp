@@ -1,5 +1,7 @@
 # wallApp
 ToDo
+ IMPORTANT Activate EMAIL
+
 [] FT - API use env for the URL localhost
 [] bck return Cannot read property 'user_password' of null no login 
 [] add auth validatin in route/edit (App) and for the buttons see trybeerV2

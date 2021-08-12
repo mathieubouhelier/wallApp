@@ -1,5 +1,7 @@
+/* eslint-disable no-undef */
 describe('Tests for Login', function () {
   it('I should login successfully', () => {
+    // eslint-disable-next-line no-undef
     cy.visit('http://localhost:3001/');
 
     cy.get(':nth-child(1) > .form-control').type('test@test.com');

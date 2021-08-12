@@ -4,7 +4,6 @@ import { loadFromLocalStorage } from '../../services/localStorage';
 class PublishManager {
   async publishPost(post) {
     const token = await loadFromLocalStorage('WallAppToken');
-    console.log('response publish manager post', post);
 
     if (!token) {
       return { data: { message: 'something wrong happened' } };
@@ -16,7 +15,6 @@ class PublishManager {
       },
       token,
     );
-    console.log('response publish manager ', response);
     if (response?.status === 201) {
       return response;
     }

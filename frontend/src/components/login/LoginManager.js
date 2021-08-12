@@ -12,7 +12,6 @@ class LoginManager {
     });
     if (response.status === 201) {
       const { token } = response.data;
-      console.log(token);
       saveToLocalStorage('WallAppToken', token);
       return response;
     }

@@ -30,7 +30,6 @@ class UserService {
 
   /** User signup */
   async userSignup(body) {
-    console.log("body", body);
       return this.http.post('user/register', body);
   }
 

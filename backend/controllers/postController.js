@@ -59,7 +59,6 @@ const editPost = async (req, res) => {
     const userId = req.userData.id;
     const postId = req.params.id;
     const post = { title, content, userId: userId };
-    console.log('userId', userId, postId);
     const response = await Posts.findByPk(postId, {
       include: { model: User, as: 'user' },
     });
@@ -69,7 +68,6 @@ const editPost = async (req, res) => {
     if (userId !== response.userId) {
       return res.status(401).json({ message: 'user not granted' });
     }
-    console.log('put', post);
     await Posts.update(post, {
       where: { id: postId },
     });

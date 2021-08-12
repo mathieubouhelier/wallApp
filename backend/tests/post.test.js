@@ -79,28 +79,7 @@ describe('Tests the endpoint `/post`', () => {
 
   it('It is possible to get all Posts', async () => {
     const expectedResult = require('./resultsQueryTests/getAllPostsReturn');
-    let token;
     await frisby
-      .post(`${url}/user/login`, {
-        email: 'johndoe@gmail.com',
-        user_password: '123456',
-      })
-      .expect('status', 201)
-      .then((response) => {
-        const { json } = response;
-        expect(json.token).not.toBeNull();
-        token = json.token;
-      });
-
-    await frisby
-      .setup({
-        request: {
-          headers: {
-            Authorization: token,
-            'Content-Type': 'application/json',
-          },
-        },
-      })
       .get(`${url}/post`, {
         title: 'The 3thd one',
         content: 'again posting',
