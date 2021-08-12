@@ -33,8 +33,10 @@ class PostService {
   }
 
   /** Get Posts */
-  async getAllPosts() {
-    return this.http.get('post', {});
+  async getAllPosts(token) {
+    console.log("getAllPosts", token);
+    return this.http.get('post', 
+    { headers: { Authorization: token } });
   }
 
   /** Update  one (id) post */

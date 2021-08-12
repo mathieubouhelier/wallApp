@@ -51,11 +51,11 @@ const PublishPost = (props) => {
         {errorMessagePost && <h2> {errorMessagePost}</h2>}
 
         <Row className="justify-content-center px-2">
-          <Button className="mt-3 col-md-2 bg-white m-2"
+          <Button className="mt-3 col-md-2 bg-white m-2 rounded-pill"
             variant="Light" disabled={!titleValid || !contentValid}
             onClick={handleClick}
           >Publish</Button>
-          <Button className="mt-3 col-md-2 bg-white m-2"
+          <Button className="mt-3 col-md-2 bg-white m-2 rounded-pill"
             variant="Light"
             onClick={handleClickBackToWall}
           >Back to the Wall</Button>

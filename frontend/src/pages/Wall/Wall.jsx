@@ -7,7 +7,6 @@ import Header from '../../components/Header/Header'
 import { Container, Button } from 'react-bootstrap';
 
 
-
 const Wall = () => {
   const history = useHistory();
   const [isFetching, setIsFetching] = useState(true);
@@ -18,11 +17,12 @@ const Wall = () => {
     setIsAuthorized(checkUserAuthorization())
     async function fetchData() {
       const response = await WallManager.loadAllPosts();
-      setPosts([...response.data])
-      setIsFetching(false)
+      if (response?.status === 200) {
+        setPosts([...response.data])
+      }
     }
+    setIsFetching(false)
     fetchData();
-    WallManager.loadAllPosts()
   }, [isFetching]);
 
   function handleClickDeletePost(event, postId) {
@@ -45,30 +45,26 @@ const Wall = () => {
         <Button className="m-3 Montez-font" variant="outline-light"
           onClick={() => history.push(`/publish`)}>
           Write a new Post</Button>
-
       }
       {isFetching && <h2>Loading</h2>}
-      {!isFetching && posts.map((post) => {
-        const visible = isAuthorized.user.id === post.user.id;
-        return (
-          <Container className="pt-5">
-            <div class="card-group">
-
-            <PostCard
-              visible={visible}
-              post={post}
-              handleClickDeletePost={handleClickDeletePost}
-            />
+      <Container className="pb-5">
+        {!isFetching && posts.map((post) => {
+          const visible = isAuthorized.user.id === post.user.id;
+          return (
+            <Container className="pt-5">
+              <div class="card-group">
+                <PostCard
+                  visible={visible}
+                  post={post}
+                  handleClickDeletePost={handleClickDeletePost}
+                />
               </div>
-          </Container>
-
-        )
-      })}
+            </Container>
+          )
+        })}
+      </Container>
     </Container>
-
-
   )
-
 }
 
 export default Wall;

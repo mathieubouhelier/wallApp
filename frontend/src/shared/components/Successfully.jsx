@@ -1,9 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Col, Row, Button } from 'react-bootstrap';
-import Header from '../../../components/Header/Header'
-
-
+import { Container, Button } from 'react-bootstrap';
+import Header from '../../components/Header/Header'
 
 const Successfully = (props) => {
   const message = props.location.state ? props.location.state.message : ""
@@ -18,13 +16,11 @@ const Successfully = (props) => {
       <div class="row text-center chalk-font py-4">
         <h2>{message}</h2>
       </div>
-      <Button className="mt-3 col-md-2 bg-white m-2"
+      <Button className="mt-3 col-md-2 bg-white m-2 rounded-pill"
         variant="Light"
         onClick={handleClick}
       >Back to the Wall</Button>
     </Container>
-
-
   )
 }
 

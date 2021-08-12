@@ -15,8 +15,8 @@ const Login = () => {
     email: '',
     password: '',
   });
-  const [errorMessageLogin, setErrorMessageLogin] = useState("");
 
+  const [errorMessageLogin, setErrorMessageLogin] = useState("");
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
 
@@ -27,21 +27,18 @@ const Login = () => {
       history.push('/wall')
     }
     setErrorMessageLogin(response.data.message);
-
   }
 
   useEffect(() => {
     const regexEmail = /[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i;
-
     const isEmailValid = regexEmail.test(user.email);
     setEmailValid(isEmailValid)
     setPasswordValid(user.password.length > 5)
     setErrorMessageLogin("");
-
   }, [user]);
 
   return (
-    <Container fluid className="bg-dark text-white justify-content-center">
+    <Container fluid className="bg-dark text-white justify-content-center text-center">
       {errorMessageLogin && <h2> {errorMessageLogin}</h2>}
       <Input
         inputType="email"
@@ -54,18 +51,16 @@ const Login = () => {
         onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
       />
       <Col className="p-3" >
-      <Row className="justify-content-md-center">
-          <Button disabled={!emailValid || !passwordValid}
+        <Row className="justify-content-md-center">
+          <Button
+            className=" my-3 col-md-3 rounded-pill"
             onClick={handleClick} variant="outline-light"
-            className=" my-3 col-md-3">
+            disabled={!emailValid || !passwordValid}
+            >
             Login
-
-
           </Button>{' '}
-    
-     </Row>
-        </Col>
-
+        </Row>
+      </Col>
     </Container>
   )
 }

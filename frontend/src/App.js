@@ -12,7 +12,7 @@ import NotFound from './pages/NotFound/NotFound';
 import {checkUserAuthorization} from './services/auth';
 import Register from './pages/Register/Register';
 import PublishPost from './pages/PublishPost/PublishPost';
-import Successfully from './shared/components/Successfully/Successfully'
+import Successfully from './shared/components/Successfully'
 function App() {
  
     

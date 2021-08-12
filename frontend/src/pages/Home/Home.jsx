@@ -25,7 +25,7 @@ const Home = () => {
       <Col className="p-3" >
         <Row className="justify-content-md-center">
           <Button
-            className="mt-3 col-md-3 bg-white "
+            className="mt-3 col-md-3 bg-white rounded-pill"
             variant="Light"
             onClick={() => history.push('/register')}
           >
@@ -33,9 +33,9 @@ const Home = () => {
             Register
           </Button>
         </Row>
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-md-center ">
           <Button
-            className="mt-3 col-md-3 light bg-white "
+            className="mt-3 col-md-3 light bg-white rounded-pill"
             variant="Light"
             data-testid="no-account-btn"
             onClick={handleClickVisitor}

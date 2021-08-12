@@ -4,8 +4,14 @@ import { loadFromLocalStorage } from '../../services/localStorage';
 
 class WallManager {
   async loadAllPosts() {
-    const response = await PostService.getAllPosts();
+    const token = await loadFromLocalStorage('WallAppToken');
 
+    if (!token) {
+      return { data: { message: 'something wrong happened' } };
+    }
+    console.log("token", token);
+    const response = await PostService.getAllPosts(token);
+console.log("response", response);
     if (response?.status === 200) {
       return response;
     }
@@ -22,7 +28,6 @@ class WallManager {
       return { data: { message: 'something wrong happened' } };
     }
     const response = await PostService.deleteOne(token, id);
-    console.log("response wall manager", response);
     if (response.status === 204) {
       return response;
     }
