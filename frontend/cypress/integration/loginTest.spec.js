@@ -13,20 +13,27 @@ describe('Tests for Login', function () {
     cy.get('[data-testid=input-password]')
       .type('123456')
       .should('have.value', '123456');
-      cy.get('[data-testid=btn-login').should("be visible");
+    cy.get('[data-testid=btn-login').should('be.visible');
   });
 
-  it('I should login successfully', () => {
+  it('Should login successfully', () => {
     cy.contains('The Wall');
     cy.get('[data-testid=input-email]').type('johndoe@gmail.com');
     cy.get('[data-testid=input-password]').type('123456');
     cy.get('[data-testid=btn-login').click();
-    cy.intercept('**/post').as('getAllPosts');
-    cy.wait('@getAllPosts');
-    cy.contains('Write a new Post');
+    cy.intercept('**/post', (req) => {
+      req.reply((res) => {
+        expect(res.statusCode).to.be.oneOf([200, 304]);
+      });
+    }).as('getAllPosts');
+    return cy.wait('@getAllPosts').then((req) => {
+      console.log('req Agenda 2', req);
+      cy.contains('Write a new Post');
+      cy.expect(window.localStorage.getItem('WallAppToken')).not.to.be.null;
+    });
   });
 
-  it('I should not login successfully with a wrong password', () => {
+  it('Should not login successfully with a wrong password', () => {
     cy.contains('The Wall');
     cy.get('[data-testid=input-email]').type('johndoe@gmail.com');
     cy.get('[data-testid=input-password]').type('12345888');
@@ -35,7 +42,7 @@ describe('Tests for Login', function () {
     cy.url().should('not.contain', 'wall');
   });
 
-  it('I should not login successfully with a wrong email', () => {
+  it('Should not login successfully with a wrong email', () => {
     cy.contains('The Wall');
     cy.get('[data-testid=input-email]').type('johndoe42@gmail.com');
     cy.get('[data-testid=input-password]').type('123456');

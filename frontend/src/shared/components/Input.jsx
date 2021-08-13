@@ -5,7 +5,6 @@ import { inputConstants } from '../utils/constants'
 
 
 const Input = ({ className, name, type, dataTestid, placeholder, value, onChange, inputType, inputValid }) => {
-  console.log("dataTestid", placeholder);
   const TypeOfInput = inputType ? inputType : "default"; //Replace by default props ?
 
   return (
@@ -16,7 +15,6 @@ const Input = ({ className, name, type, dataTestid, placeholder, value, onChange
           name={name ? name : inputConstants[TypeOfInput].name}
           type={type ? type : inputConstants[TypeOfInput].type}
           data-testid={dataTestid ? dataTestid : null}
-          // data-testid="email-input"
           placeholder={placeholder ? placeholder : inputConstants[TypeOfInput].placeholder}
           value={value ? value : null}
           onChange={onChange}
