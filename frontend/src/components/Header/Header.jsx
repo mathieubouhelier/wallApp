@@ -21,7 +21,8 @@ const Header = () => {
       >Logout
       </Button>
       <Button className="mt-3 col-md-1 bg-white m-2"
-        variant="Light" onClick={() => history.push(`/`)}
+            data-testid="btn-home"
+            variant="Light" onClick={() => history.push(`/`)}
       >home
       </Button>
     </Container>

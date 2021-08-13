@@ -35,9 +35,9 @@ const Home = () => {
         </Row>
         <Row className="justify-content-md-center ">
           <Button
+            data-testid="btn-visitor"
             className="mt-3 col-md-3 light bg-white rounded-pill"
             variant="Light"
-            data-testid="no-account-btn"
             onClick={handleClickVisitor}
           >
             {' '}
