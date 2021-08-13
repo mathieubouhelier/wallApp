@@ -5,8 +5,8 @@ import { inputConstants } from '../utils/constants'
 
 
 const Input = ({ className, name, type, dataTestid, placeholder, value, onChange, inputType, inputValid }) => {
+  console.log("dataTestid", placeholder);
   const TypeOfInput = inputType ? inputType : "default"; //Replace by default props ?
-
 
   return (
     <div className="row mt-4 justify-content-center ">
@@ -16,13 +16,14 @@ const Input = ({ className, name, type, dataTestid, placeholder, value, onChange
           name={name ? name : inputConstants[TypeOfInput].name}
           type={type ? type : inputConstants[TypeOfInput].type}
           data-testid={dataTestid ? dataTestid : null}
+          // data-testid="email-input"
           placeholder={placeholder ? placeholder : inputConstants[TypeOfInput].placeholder}
           value={value ? value : null}
           onChange={onChange}
         />
-        {!inputValid ? 
-        <small id="emailHelp" className="form-text text-danger">{inputConstants[TypeOfInput].invalidMessage}</small> : 
-        <small>  </small>}
+        {!inputValid ?
+          <small id="emailHelp" className="form-text text-danger">{inputConstants[TypeOfInput].invalidMessage}</small> :
+          <small>  </small>}
       </div>
     </div>
 

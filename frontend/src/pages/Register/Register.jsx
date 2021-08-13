@@ -63,6 +63,7 @@ const Register = () => {
         {errorMessageRegister && <h2> {errorMessageRegister}</h2>}
         <Input
           inputType="name"
+          dataTestid="input-name"
           inputValid={nameValid || user.name === ""}
           onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
         />

@@ -1,26 +1,46 @@
 /* eslint-disable no-undef */
+
 describe('Tests for Login', function () {
-  it('I should login successfully', () => {
-    // eslint-disable-next-line no-undef
+  beforeEach(() => {
     cy.visit('http://localhost:3001/');
+  });
 
-    cy.get(':nth-child(1) > .form-control').type('test@test.com');
+  it('Assert Input Data', () => {
+    cy.contains('The Wall');
+    cy.get('[data-testid=input-email]')
+      .type('johndoe@gmail.com')
+      .should('have.value', 'johndoe@gmail.com');
+    cy.get('[data-testid=input-password]')
+      .type('123456')
+      .should('have.value', '123456');
+      cy.get('[data-testid=btn-login').should("be visible");
+  });
 
-    cy.get(':nth-child(2) > .form-control').type('test');
+  it('I should login successfully', () => {
+    cy.contains('The Wall');
+    cy.get('[data-testid=input-email]').type('johndoe@gmail.com');
+    cy.get('[data-testid=input-password]').type('123456');
+    cy.get('[data-testid=btn-login').click();
+    cy.intercept('**/post').as('getAllPosts');
+    cy.wait('@getAllPosts');
+    cy.contains('Write a new Post');
+  });
 
-    cy.get('.btn').click();
+  it('I should not login successfully with a wrong password', () => {
+    cy.contains('The Wall');
+    cy.get('[data-testid=input-email]').type('johndoe@gmail.com');
+    cy.get('[data-testid=input-password]').type('12345888');
+    cy.get('[data-testid=btn-login').click();
+    cy.contains('Invalid login and/or password');
+    cy.url().should('not.contain', 'wall');
+  });
 
-    cy.url().should('contain', 'http://localhost:4100/');
-    cy.get(':nth-child(4) > .nav-link').should('have.attr', 'href', '/@test');
-    cy.get(':nth-child(3) > .nav-link').should(
-      'have.attr',
-      'href',
-      '/settings',
-    );
-    cy.get('.container > .nav > :nth-child(2) > .nav-link').should(
-      'have.attr',
-      'href',
-      '/editor',
-    );
+  it('I should not login successfully with a wrong email', () => {
+    cy.contains('The Wall');
+    cy.get('[data-testid=input-email]').type('johndoe42@gmail.com');
+    cy.get('[data-testid=input-password]').type('123456');
+    cy.get('[data-testid=btn-login').click();
+    cy.contains('Invalid login and/or password');
+    cy.url().should('not.contain', 'wall');
   });
 });
