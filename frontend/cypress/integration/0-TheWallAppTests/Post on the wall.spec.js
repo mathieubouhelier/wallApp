@@ -4,16 +4,14 @@ import { login } from '../../actions/actionsbase';
 
 describe('Tests for Register', function () {
   beforeEach(() => {
-    login('johndoe@gmail.com', '123456');
-  });
-
-  before(() => {
     cy.exec('cd .. && cd backend && npx sequelize-cli db:drop');
     cy.exec(
       'cd .. && cd backend && npx sequelize-cli db:create && npx sequelize-cli db:migrate $',
-    );
-    cy.exec('cd .. && cd backend && npx sequelize-cli db:seed:all $');
+      );
+      cy.exec('cd .. && cd backend && npx sequelize-cli db:seed:all $');
+      login('johndoe@gmail.com', '123456');
   });
+  
 
   it('Assert wall route is working', () => {
     cy.contains('Write a new Post');
@@ -54,7 +52,7 @@ describe('Tests for Register', function () {
     cy.intercept('**/post', (req) => {
       req.reply((res) => {
         // eslint-disable-next-line jest/valid-expect
-        expect(res.statusCode).to.be.oneOf([201, 304]);
+        expect(res.statusCode).to.be.oneOf([200, 201, 304]);
       });
     }).as('post');
     cy.get('[data-testid=btn-writePost]').click();
@@ -73,13 +71,15 @@ describe('Tests for Register', function () {
       cy.expect(window.localStorage.getItem('WallAppToken')).not.to.be.null;
     });
     cy.get('[data-testid=btn-back]').click();
+    cy.contains('title to test publish');
+
   });
 
   it('Assert edit a post', () => {
     cy.intercept('**/post', (req) => {
       req.reply((res) => {
         // eslint-disable-next-line jest/valid-expect
-        expect(res.statusCode).to.be.oneOf([201, 304]);
+        expect(res.statusCode).to.be.oneOf([200, 201, 304]);
       });
     }).as('post');
     cy.get('[data-testid=btn-edit-0]').click();
@@ -98,6 +98,8 @@ describe('Tests for Register', function () {
       cy.expect(window.localStorage.getItem('WallAppToken')).not.to.be.null;
     });
     cy.get('[data-testid=btn-back]').click();
+    cy.contains('First Posttitle to test publish');
+    
   });
 
 
@@ -105,7 +107,7 @@ describe('Tests for Register', function () {
     login('user3@gmail.com','123456')
     cy.contains('First Post');
     cy.contains('The 2nd one');
-    cy.get('[data-testid=btn-edit-0]').should('not.exist')
+    cy.get('[data-testid=btn-edit]').should('not.exist')
   });
 
   it('Should be possible to delete a post', () => {

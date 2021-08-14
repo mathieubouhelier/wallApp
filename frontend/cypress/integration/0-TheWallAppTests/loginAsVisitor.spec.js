@@ -1,6 +1,4 @@
 /* eslint-disable no-undef */
-import { login } from '../../actions/actionsbase';
-
 describe('Tests for Login as visitor', function () {
   beforeEach(() => {
     cy.visit('http://localhost:3001/');
@@ -20,8 +18,6 @@ describe('Tests for Login as visitor', function () {
         expect(res.statusCode).to.be.oneOf([200, 304]);
       });
     }).as('getAllPosts');
-    login("johndoe@gmail.com","123456");
-    cy.get('[data-testid=btn-home]').click();
     cy.contains('The Wall');
     cy.get('[data-testid=btn-visitor]').click();
     return cy.wait('@getAllPosts').then((req) => {

@@ -9,7 +9,7 @@ const PostCard = ({ visible, post, handleClickDeletePost, index }) => {
 
 
   return (
-    <Card className="bg-dark text-white border Montez-font" >
+    <Card className="bg-dark text-white border Montez-font" data-testid="card">
       <Card.Body>
         <Card.Title className=" font" ><h2>{post.title}</h2></Card.Title>
         <Card.Text> <h4>
