@@ -16,8 +16,9 @@ const Successfully = (props) => {
       <div class="row text-center chalk-font py-4">
         <h2>{message}</h2>
       </div>
-      <Button className="mt-3 col-md-2 bg-white m-2 rounded-pill"
+      <Button className="mt-3 col-md-3 bg-white m-2 rounded-pill"
         variant="Light"
+        data-testid="btn-back"
         onClick={handleClick}
       >Back to the Wall</Button>
     </Container>

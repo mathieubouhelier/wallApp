@@ -36,9 +36,9 @@ const Register = () => {
     event.preventDefault();
 
     if (user.password === user.passwordConfirmation) {
-      SendRegisteredDataToManager()
+      return SendRegisteredDataToManager()
     }
-    setErrorMessageRegister("The two passwords are equals");
+    setErrorMessageRegister("The two passwords are not equals");
   }
 
   useEffect(() => {
@@ -69,16 +69,20 @@ const Register = () => {
         />
         <Input
           inputType="email"
+          dataTestid="input-email"
           inputValid={emailValid || user.email === ""}
           onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
         />
         <Input
           inputType="password"
+          dataTestid="input-password"
           inputValid={(passwordValid || user.password === "")}
           onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
         />
         <Input
           inputType="passwordConfirmation"
+          dataTestid="input-passwordConfirmation"
+
           inputValid={(passwordConfirmationValid || user.passwordConfirmation === "")}
           onChange={(event) => setUser({ ...user, [event.target.name]: event.target.value })}
         />
@@ -86,11 +90,11 @@ const Register = () => {
           <Button
             className="mt-2 col-md-3 light bg-white rounded-pill"
             variant="Light"
-            data-testid="sign-btn"
-            disabled={!emailValid || !passwordValid}
+            data-testid="btn-signin"
+            disabled={!emailValid || !passwordValid || !passwordConfirmationValid}
             onClick={handleClick}
           >
-            Sing in
+            Sign in
           </Button>
         </div>
       </Container>

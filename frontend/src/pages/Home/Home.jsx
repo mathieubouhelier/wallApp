@@ -25,6 +25,7 @@ const Home = () => {
       <Col className="p-3" >
         <Row className="justify-content-md-center">
           <Button
+            data-testid="btn-register"
             className="mt-3 col-md-3 bg-white rounded-pill"
             variant="Light"
             onClick={() => history.push('/register')}
