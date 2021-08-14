@@ -16,4 +16,5 @@ ToDo
 [] test swagger
 [] add to put test, check the data base....
 [] add to post test, check the data base....
-
+[] everything must be possible to tun front /root (not front/...)
+  cypress - test - install - run

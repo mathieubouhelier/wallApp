@@ -20,7 +20,7 @@ describe('Tests for Login as visitor', function () {
         expect(res.statusCode).to.be.oneOf([200, 304]);
       });
     }).as('getAllPosts');
-    login("johndoe@gmail.com", "123456");
+    login("johndoe@gmail.com","123456");
     cy.get('[data-testid=btn-home]').click();
     cy.contains('The Wall');
     cy.get('[data-testid=btn-visitor]').click();

@@ -15,7 +15,7 @@ describe('Tests for Register', function () {
     cy.exec('cd .. && cd backend && npx sequelize-cli db:seed:all $');
   });
 
-  it.skip('Assert wall route is working', () => {
+  it('Assert wall route is working', () => {
     cy.contains('Write a new Post');
     cy.visit('http://localhost:3001/');
     cy.contains('The Wall App');
@@ -27,13 +27,13 @@ describe('Tests for Register', function () {
     cy.contains('Delete this post').should('have.length', 1);
   });
 
-  it.skip('Assert write a post route is working', () => {
+  it('Assert write a post route is working', () => {
     cy.contains('Write a new Post');
     cy.get('[data-testid=btn-writePost]').click();
     cy.contains('write and publish');
   });
 
-  it.skip('Assert Write a Post Input Data', () => {
+  it('Assert Write a Post Input Data', () => {
     cy.get('[data-testid=btn-writePost]').click();
     cy.contains('write and publish');
     cy.get('[data-testid=input-title]')
@@ -50,7 +50,7 @@ describe('Tests for Register', function () {
       .should('not.be.disabled');
   });
 
-  it.skip('Should publish successfully', () => {
+  it('Should publish successfully', () => {
     cy.intercept('**/post', (req) => {
       req.reply((res) => {
         // eslint-disable-next-line jest/valid-expect
@@ -75,7 +75,7 @@ describe('Tests for Register', function () {
     cy.get('[data-testid=btn-back]').click();
   });
 
-  it.skip('Assert edit a post', () => {
+  it('Assert edit a post', () => {
     cy.intercept('**/post', (req) => {
       req.reply((res) => {
         // eslint-disable-next-line jest/valid-expect
@@ -108,18 +108,16 @@ describe('Tests for Register', function () {
     cy.get('[data-testid=btn-edit-0]').should('not.exist')
   });
 
-  it.skip('Should be possible to delete a post', () => {
+  it('Should be possible to delete a post', () => {
     cy.contains('First Post');
     cy.contains('The 2nd one');
     cy.get('[data-testid=btn-delete-0]').click();
-    cy.contains('First Post');
-    cy.contains('First Pos').should('not.exist');
+    cy.contains('First Post').should('not.exist');
   });
 
   it('Should not be possible to delete a post with the wrong user', () => {
-    login('user3@gmail.com','123456')
-    cy.contains('First Post');
     cy.contains('The 2nd one');
+    login('user3@gmail.com','123456')
     cy.get('[data-testid=btn-delete-0]').should('not.exist')
   });
 });
