@@ -36,7 +36,9 @@ describe('Tests for Register', function () {
     cy.get('[data-testid=input-passwordConfirmation]')
       .type('123456')
       .should('have.value', '123456');
-    cy.get('[data-testid=btn-signin]').should('be.visible').should('not.be.disabled');;
+    cy.get('[data-testid=btn-signin]')
+      .should('be.visible')
+      .should('not.be.disabled');
   });
 
   it('Should register successfully', () => {
@@ -59,15 +61,13 @@ describe('Tests for Register', function () {
     cy.get('[data-testid=input-passwordConfirmation]').type('123456');
     cy.get('[data-testid=btn-signin]').click();
 
-    
-    
     cy.wait('@register').then((req) => {
       cy.contains('successfully');
       // eslint-disable-next-line no-unused-expressions
       cy.expect(window.localStorage.getItem('WallAppToken')).not.to.be.null;
     });
     cy.get('[data-testid=btn-back]').click();
-    
+
     cy.wait('@getAllPosts').then((req) => {
       cy.contains('Write a new Post');
       cy.get('[data-testid=btn-writePost]').should('exist');
@@ -75,7 +75,6 @@ describe('Tests for Register', function () {
       // eslint-disable-next-line no-unused-expressions
       cy.expect(window.localStorage.getItem('WallAppToken')).not.to.be.null;
     });
-    
   });
 
   it('Should not register successfully with password and password confirmation different', () => {
@@ -110,5 +109,4 @@ describe('Tests for Register', function () {
     cy.contains('User already exist');
     cy.url().should('not.contain', 'successfully');
   });
-
 });

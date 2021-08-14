@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-export function login() {
+export function login(email, password) {
+  cy.visit('http://localhost:3001/');
   cy.intercept('**/post', (req) => {
     req.reply((res) => {
       // eslint-disable-next-line jest/valid-expect
@@ -7,10 +8,10 @@ export function login() {
     });
   }).as('getAllPosts');
   cy.get('[data-testid=input-email]')
-      .type('johndoe@gmail.com')
+      .type(email)
      
     cy.get('[data-testid=input-password]')
-      .type('123456')
+      .type(password)
       
     cy.get('[data-testid=btn-login]').click();
     cy.wait('@getAllPosts').then((req) => {
@@ -18,5 +19,4 @@ export function login() {
       // eslint-disable-next-line no-unused-expressions
       cy.expect(window.localStorage.getItem('WallAppToken')).not.to.be.null;
     });
-    cy.get('[data-testid=btn-home]').click();
 }

@@ -48,12 +48,13 @@ const Wall = () => {
       }
       {isFetching && <h2>Loading</h2>}
       <Container className="pb-5">
-        {!isFetching && posts.map((post) => {
+        {!isFetching && posts.map((post, index) => {
           const visible = isAuthorized.user.id === post.user.id;
           return (
-            <Container className="pt-5">
+            <Container className="pt-5" key={index}>
               <div class="card-group">
                 <PostCard
+                  index={index}
                   visible={visible}
                   post={post}
                   handleClickDeletePost={handleClickDeletePost}

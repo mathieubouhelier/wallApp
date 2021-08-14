@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
-import {
-  login
-} from '../../actions/actionsbase';
+import { login } from '../../actions/actionsbase';
 
 describe('Tests for Login as visitor', function () {
   beforeEach(() => {
@@ -10,7 +8,9 @@ describe('Tests for Login as visitor', function () {
 
   it('Assert Input Data', () => {
     cy.contains('The Wall');
-    cy.get('[data-testid=btn-visitor]').should('be.visible').should('not.be.disabled');;
+    cy.get('[data-testid=btn-visitor]')
+      .should('be.visible')
+      .should('not.be.disabled');
   });
 
   it('Should login as a visitor successfully', () => {
@@ -20,12 +20,14 @@ describe('Tests for Login as visitor', function () {
         expect(res.statusCode).to.be.oneOf([200, 304]);
       });
     }).as('getAllPosts');
-    login();
+    login("johndoe@gmail.com", "123456");
+    cy.get('[data-testid=btn-home]').click();
     cy.contains('The Wall');
     cy.get('[data-testid=btn-visitor]').click();
     return cy.wait('@getAllPosts').then((req) => {
       cy.get('body').should('not.contain', 'Write a new Post');
       cy.get('[data-testid=btn-writePost]').should('not.exist');
+      cy.contains('First Post');
       // eslint-disable-next-line no-unused-expressions
       cy.expect(window.localStorage.getItem('WallAppToken')).to.be.null;
     });

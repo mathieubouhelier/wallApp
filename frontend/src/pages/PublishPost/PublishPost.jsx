@@ -53,15 +53,16 @@ const PublishPost = (props) => {
         <Row className="justify-content-center px-2">
           <Button className="mt-3 col-md-2 bg-white m-2 rounded-pill"
             variant="Light" disabled={!titleValid || !contentValid}
-            onClick={handleClick}
+            onClick={handleClick} data-testid="btn-publish"
           >Publish</Button>
           <Button className="mt-3 col-md-2 bg-white m-2 rounded-pill"
-            variant="Light"
-            onClick={handleClickBackToWall}
+            variant="Light" 
+            onClick={handleClickBackToWall} data-testid="btn-back"
           >Back to the Wall</Button>
         </Row>
         <Input
           inputType="title"
+          dataTestid="input-title"
           inputValid={titleValid || post.title === ""}
           value={post.title}
           onChange={(event) => setPost({ ...post, [event.target.name]: event.target.value })}
@@ -77,6 +78,7 @@ const PublishPost = (props) => {
               className="col"
               inputType="content"
               name="content"
+              data-testid="input-content"
               inputValid={contentValid || post.content === ""}
               value={post.content}
               placeholder="Write your post"
