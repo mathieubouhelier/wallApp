@@ -42,7 +42,7 @@ const Wall = () => {
       <Header />
       {isAuthorized.authorized &&
 
-        <Button className="m-3 Montez-font" variant="outline-light"
+        <Button data-testid="btn-writePost" className="m-3 Montez-font" variant="outline-light"
           onClick={() => history.push(`/publish`)}>
           Write a new Post</Button>
       }

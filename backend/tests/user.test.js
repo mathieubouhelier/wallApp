@@ -25,6 +25,7 @@ afterAll(async () => {
 beforeAll(async () => {
   shell.exec('npx sequelize-cli db:drop');
   shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate $');
+
 });
 
 beforeEach(async () => {

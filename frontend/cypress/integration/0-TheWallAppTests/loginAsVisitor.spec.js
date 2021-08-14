@@ -25,6 +25,7 @@ describe('Tests for Login as visitor', function () {
     cy.get('[data-testid=btn-visitor]').click();
     return cy.wait('@getAllPosts').then((req) => {
       cy.get('body').should('not.contain', 'Write a new Post');
+      cy.get('[data-testid=btn-writePost]').should('not.exist');
       // eslint-disable-next-line no-unused-expressions
       cy.expect(window.localStorage.getItem('WallAppToken')).to.be.null;
     });
