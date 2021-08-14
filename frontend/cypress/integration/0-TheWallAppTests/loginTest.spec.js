@@ -19,7 +19,7 @@ describe('Tests for Login', function () {
     cy.get('[data-testid=input-password]')
       .type('123456')
       .should('have.value', '123456');
-    cy.get('[data-testid=btn-login]').should('be.visible');
+    cy.get('[data-testid=btn-login]').should('be.visible').should('not.be.disabled');;
   });
 
   it('Should login successfully', () => {

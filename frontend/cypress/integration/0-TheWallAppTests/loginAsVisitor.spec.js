@@ -10,7 +10,7 @@ describe('Tests for Login as visitor', function () {
 
   it('Assert Input Data', () => {
     cy.contains('The Wall');
-    cy.get('[data-testid=btn-visitor]').should('be.visible');
+    cy.get('[data-testid=btn-visitor]').should('be.visible').should('not.be.disabled');;
   });
 
   it('Should login as a visitor successfully', () => {

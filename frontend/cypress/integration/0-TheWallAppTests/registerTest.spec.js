@@ -36,7 +36,7 @@ describe('Tests for Register', function () {
     cy.get('[data-testid=input-passwordConfirmation]')
       .type('123456')
       .should('have.value', '123456');
-    cy.get('[data-testid=btn-signin]').should('be.visible');
+    cy.get('[data-testid=btn-signin]').should('be.visible').should('not.be.disabled');;
   });
 
   it('Should register successfully', () => {
