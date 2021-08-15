@@ -10,14 +10,14 @@ NODE and MYSQL must be installed and MSQL service must be running
  <a href="https://github.com/mathieubouhelier/wallApp" alt="Recipe-project"> Link to WallApp Repository </a> 
  - Run `git clone git@github.com:mathieubouhelier/wallApp.git`
  
- - Or un `https://github.com/mathieubouhelier/wallApp.git`
+ - Or Run `https://github.com/mathieubouhelier/wallApp.git`
  
 2. Install the dependencies: 
 
 - Navigate to root directory WallApp/ and run `npm run install`
 
 3. Create an .`env` file at the root (WallApp/) and fill it (use `.env.example` (localize at WallApp/) as an example)
-4. Navigate to WallApp/frontend, create an .`env` file and fill it (use `.env_Frontend.example` (localize at WallApp/frontend)as an example)
+4. Navigate to WallApp/frontend, create an .`env` file and fill it (use `.env_Frontend.example` (localize at WallApp/frontend) as an example)
 
 5. Start the app: 
 - Navigate to root directory WallApp/ and run the command `npm start`
@@ -35,6 +35,9 @@ To access and interact with WallApp Swagger documentation:
 - The backend must be running if not navigate to WallApp/backend and run the command `npm run dev` 
 
 - Please access to http://localhost:3000/api-docs/
+
+<img src = "./swagger.png" alt="swagger print" height="200">
+<br />
 
 ## WallApp Diagram
 
