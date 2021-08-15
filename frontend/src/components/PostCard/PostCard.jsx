@@ -18,8 +18,10 @@ const PostCard = ({ visible, post, handleClickDeletePost, index }) => {
         </h4>
         </Card.Text>
         {visible && <div >
-          <Button className="m-3" variant="outline-light" data-testid={`btn-edit-${index}`} onClick={() => history.push(`/publish`, { post })}>Edit this post</Button>
-          <Button className="m-3" variant="outline-light" data-testid={`btn-delete-${index}`} onClick={(e) => {
+          <Button className="m-3" variant="outline-light" data-testid={`btn-edit-${index}`} 
+          onClick={() => history.push(`/publish`, { post })}>Edit this post</Button>
+          <Button className="m-3" variant="outline-light" data-testid={`btn-delete-${index}`} 
+          onClick={(e) => {
             handleClickDeletePost(e, post.id);
           }}>Delete this post</Button>
         </div>}

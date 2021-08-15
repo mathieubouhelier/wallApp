@@ -7,7 +7,7 @@ import PublishManager from './PublishPostManager';
 import Header from '../../components/Header/Header'
 
 const PublishPost = (props) => {
-  const postId = props.dataWall.location.state.post.id;
+  const postId = props.dataWall.location.state?.post.id;
   const history = useHistory();
   const postToEdit = props.dataWall.location.state?.post;
 

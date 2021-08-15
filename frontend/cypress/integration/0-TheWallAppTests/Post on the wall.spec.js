@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import { login } from '../../actions/actionsbase';
 
-describe('Tests for Register', function () {
+describe('Tests for Post', function () {
   beforeEach(() => {
     cy.exec('cd .. && cd backend && npx sequelize-cli db:drop');
     cy.exec(
@@ -76,7 +76,7 @@ describe('Tests for Register', function () {
   });
 
   it('Assert edit a post', () => {
-    cy.intercept('**/post', (req) => {
+    cy.intercept('**/post/*', (req) => {
       req.reply((res) => {
         // eslint-disable-next-line jest/valid-expect
         expect(res.statusCode).to.be.oneOf([200, 201, 304]);
