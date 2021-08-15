@@ -11,9 +11,14 @@ const getAllUsersReturn =  [
   },
   {
     id: 3,
+    user_name: 'user3',
+    email: 'user3@gmail.com',
+  },
+  {
+    id: 4,
     user_name: "user4ForTest",
     email: "user4@gmail.com",
-  }
+  },
 ];
 
 module.exports = getAllUsersReturn;

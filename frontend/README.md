@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# The WallApp ReadMe
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Prerequisites
 
-## Available Scripts
+NODE and MYSQL must be installed and running
 
-In the project directory, you can run:
+## How to install and start this app?
 
-### `npm start`
+1. Clone the project from github repository using the command `git clone `
+ <a href="https://github.com/mathieubouhelier/wallApp" alt="Recipe-project"> Link to WallApp Repository </a> 
+ - Run `git clone git@github.com:mathieubouhelier/wallApp.git`
+ 
+ - Or un `https://github.com/mathieubouhelier/wallApp.git`
+ 
+2. Install the dependencies: 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Navigate to root directory and run `npm run install`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. Create an .`env` file at the root and fill it (use `.env.example` as an example)
+4. Navigate to /frontend, create an .`env` file and fill it (use `.env.example` as an example)
 
-### `npm test`
+5. Start the app: 
+- Navigate to root directory and run `npm start`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## What it is about?
 
-### `npm run build`
+The WallApp alow user to publish, edit and delete a Post. All Posts are displayed on one "wall" where users can see and interact with the Posts.
+All posts could be seen by visitors (not logged/Authed users) but only the logged (Authed) users can publish, edit and delete a Post.
+It is possible to register new users and when the register process is completed, a welcome email confirmation is send to the new users
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Swagger documentation of WallApp
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To access and interact with WallApp Swagger documentation:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- The backend must be running.  Run `npm run dev` form backend directory
 
-### `npm run eject`
+- Please access to http://localhost:3000/api-docs/
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## How to run the tests?
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Two different type of tests are available, units tests for the backend and E2E tests using Cypress.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- To run the units tests:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Navigate into the backend directory
+2. Execute `npm run dev`
+3. Execute `npm test`
 
-## Learn More
+- To run the E2E Cypress tests:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Navigate into the frontend directory
+2. Execute `npm cypress:open`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

@@ -23,6 +23,6 @@ app.use((error, _req, res, _next) => {
   res.status(500).send({ message });
 });
 
-app.listen(PORT, () => console.log(`listening at ${PORT}`));
+app.listen(PORT, () => console.log(`listening at PORT ${PORT}, ${process.env.NODE_ENV}`));
 
 module.exports = app;
