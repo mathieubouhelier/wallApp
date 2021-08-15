@@ -1,10 +1,7 @@
 import axios from 'axios';
 
-
-
 class PostService {
   constructor() {
-    // const url = 'http://localhost:3000';
     const url = process.env.REACT_APP_API_URL || 'http://localhost:3000';
     const timeout = 30000;
 
@@ -25,7 +22,7 @@ class PostService {
   }
   /** post one Post */
   async publish(post, token) {
-    return this.http.post('post',post, {
+    return this.http.post('post', post, {
       headers: {
         authorization: token,
       },
@@ -34,29 +31,22 @@ class PostService {
 
   /** Get Posts */
   async getAllPosts() {
-    console.log("getAllPosts", );
-    return this.http.get('/post', 
-   );
+    return this.http.get('/post');
   }
 
   /** Update  one (id) post */
-  async updatePost(post, token, id ) {
-    console.log("api", post, token, id );
-
-    return this.http.put(
-      `/post/${id}`, post,
-      { headers: { Authorization: token } },
-    );
+  async updatePost(post, token, id) {
+    return this.http.put(`/post/${id}`, post, {
+      headers: { Authorization: token },
+    });
   }
 
-    /** Update  one (id) post */
-    async deleteOne(token, id) {
-      return this.http.delete(
-        `/post/${id}`,
-        { headers: { Authorization: token } },
-      );
-    }
-
+  /** Delete one (id) post */
+  async deleteOne(token, id) {
+    return this.http.delete(`/post/${id}`, {
+      headers: { Authorization: token },
+    });
+  }
 }
 
 export default new PostService();

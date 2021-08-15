@@ -4,6 +4,7 @@ import {
   deleteFromLocalStorage,
 } from '../../services/localStorage';
 
+
 class RegisterManager {
   async logTheUser(user) {
     const response = await UserService.userSignup({

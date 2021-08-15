@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { deleteFromLocalStorage } from '../../services/localStorage';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
+import {Button, Container} from 'react-bootstrap';
+
 
 const Header = () => {
 
@@ -15,7 +15,6 @@ const Header = () => {
 
   return (
     <Container fluid className="bg-dark text-white mp-3">
-
       <Button className="mt-3 col-md-2 bg-white m-2"
         variant="Light" onClick={handleClickLogout}
         data-testid="btn-logout"

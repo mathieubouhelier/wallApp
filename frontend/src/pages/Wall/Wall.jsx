@@ -41,7 +41,6 @@ const Wall = () => {
     <Container fluid className="bg-dark text-white min-vh-100 w-100">
       <Header />
       {isAuthorized.authorized &&
-
         <Button data-testid="btn-writePost" className="m-3 Montez-font" variant="outline-light"
           onClick={() => history.push(`/publish`)}>
           Write a new Post</Button>

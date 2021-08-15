@@ -24,7 +24,7 @@ class PublishManager {
   }
 
   async updatePost(post, postId) {
-    console.log("edited", postId)
+    console.log('edited', postId);
     const token = await loadFromLocalStorage('WallAppToken');
 
     if (!token) {
@@ -35,9 +35,9 @@ class PublishManager {
         title: post.title,
         content: post.content,
       },
-      token, postId
+      token,
+      postId,
     );
-    console.log("update", response);
     if (response?.status === 200) {
       return response;
     }

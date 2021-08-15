@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
@@ -6,23 +5,23 @@ import Input from "../../shared/components/Input";
 import PublishManager from './PublishPostManager';
 import Header from '../../components/Header/Header'
 
+
 const PublishPost = (props) => {
-  const postId = props.dataWall.location.state?.post.id;
   const history = useHistory();
   const postToEdit = props.dataWall.location.state?.post;
-
   const [post, setPost] = useState({
     title: postToEdit ? postToEdit.title : '',
     content: postToEdit ? postToEdit.content : '',
   });
   const [errorMessagePost, setErrorMessagePost] = useState("");
-
   const [titleValid, setTitleValid] = useState(false);
   const [contentValid, setContentValid] = useState(false);
 
   async function handleClick(event) {
     event.preventDefault();
-    const response = postToEdit ? await PublishManager.updatePost(post, postId) : await PublishManager.publishPost(post);
+    const response = postToEdit ?
+      await PublishManager.updatePost(post, postToEdit.id) :
+      await PublishManager.publishPost(post);
     if (response?.status === 201) {
       history.push({
         pathname: '/successfully',
@@ -56,7 +55,6 @@ const PublishPost = (props) => {
           {postToEdit ? <h2>You can edit your post</h2> : <h2>You can write and publish your post</h2>}
         </div>
         {errorMessagePost && <h2> {errorMessagePost}</h2>}
-
         <Row className="justify-content-center px-2">
           <Button className="mt-3 col-md-2 bg-white m-2 rounded-pill"
             variant="Light" disabled={!titleValid || !contentValid}

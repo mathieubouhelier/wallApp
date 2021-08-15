@@ -54,6 +54,5 @@ export const inputConstants = {
     type: "text",
     placeholder: "Type your text",
     invalidMessage: "Please enter a valid input."
-
   }
 }

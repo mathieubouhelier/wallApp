@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Input from '../../shared/components/Input'
-import { Container, Button} from 'react-bootstrap/';
+import { Container, Button } from 'react-bootstrap/';
 import RegisterManager from './RegisterManager';
 import { useHistory } from 'react-router-dom';
 
 
 const Register = () => {
   const history = useHistory();
-
+  const [errorMessageRegister, setErrorMessageRegister] = useState("");
+  const [emailValid, setEmailValid] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [passwordConfirmationValid, setPasswordConfirmationValid] = useState(false);
+  const [nameValid, setNameValid] = useState(false);
   const [user, setUser] = useState({
     email: '',
     name: '',
     password: '',
     passwordConfirmation: '',
   });
-  const [errorMessageRegister, setErrorMessageRegister] = useState("");
-
-  const [emailValid, setEmailValid] = useState(false);
-  const [passwordValid, setPasswordValid] = useState(false);
-  const [passwordConfirmationValid, setPasswordConfirmationValid] = useState(false);
-  const [nameValid, setNameValid] = useState(false);
 
   async function SendRegisteredDataToManager() {
+
     const response = await RegisterManager.logTheUser(user);
     if (response.status === 201) {
       history.push({
@@ -43,13 +42,11 @@ const Register = () => {
 
   useEffect(() => {
     const regexEmail = /[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i;
-
     const isEmailValid = regexEmail.test(user.email);
     setEmailValid(isEmailValid)
     setNameValid(user.name.length > 7)
     setPasswordValid(user.password.length > 5)
     setPasswordConfirmationValid(user.passwordConfirmation.length > 5)
-    setErrorMessageRegister("");
 
   }, [user]);
 
@@ -57,7 +54,7 @@ const Register = () => {
     <Container fluid className="bg-dark text-white justify-content-center text-center vh-100">
       <Container className="pt-5">
         <h2>Sign up with email</h2>
-        <h2  className="py-4">
+        <h2 className="py-4">
           Enter your email address to create an account.
         </h2>
         {errorMessageRegister && <h2> {errorMessageRegister}</h2>}

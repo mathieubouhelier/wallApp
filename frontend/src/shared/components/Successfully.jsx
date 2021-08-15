@@ -3,8 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { Container, Button } from 'react-bootstrap';
 import Header from '../../components/Header/Header'
 
+
 const Successfully = (props) => {
-  const message = props.location.state ? props.location.state.message : ""
+  const message = props.location.state ? props.location.state.message : "";
   const history = useHistory();
   function handleClick() {
     history.push('/wall')

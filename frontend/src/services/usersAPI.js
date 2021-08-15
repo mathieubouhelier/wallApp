@@ -3,7 +3,7 @@ import axios from 'axios';
 
 class UserService {
   constructor() {
-    const url = 'http://localhost:3000';
+    const url = process.env.REACT_APP_API_URL || 'http://localhost:3000';
     const timeout = 30000;
 
     this.http = axios.create({
@@ -11,7 +11,7 @@ class UserService {
       timeout,
     });
 
-    // Define os handlers para tratamento de erro e sucesso
+    // Define os handlers 
     this.http.interceptors.response.use(this.handleSuccess, this.handleError);
   }
 

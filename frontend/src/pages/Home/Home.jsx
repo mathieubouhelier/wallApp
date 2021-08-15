@@ -2,12 +2,11 @@ import React from 'react';
 import Login from '../../components/login/Login'
 import { deleteFromLocalStorage } from '../../services/localStorage';
 import { useHistory } from 'react-router-dom';
-import {Container, Button, Col, Row} from 'react-bootstrap/';
+import { Container, Button, Col, Row } from 'react-bootstrap/';
 
 
 const Home = () => {
   const history = useHistory();
-
   const handleClickVisitor = () => {
     deleteFromLocalStorage("WallAppToken")
     history.push('/wall')

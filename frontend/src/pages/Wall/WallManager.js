@@ -4,9 +4,8 @@ import { loadFromLocalStorage } from '../../services/localStorage';
 
 class WallManager {
   async loadAllPosts() {
-
     const response = await PostService.getAllPosts();
-    console.log("response", response);
+    
     if (response?.status === 200) {
       return response;
     }

@@ -1,6 +1,7 @@
 import { loadFromLocalStorage } from '../services/localStorage'
 import jwtDecode from 'jwt-decode';
 
+
   export const checkUserAuthorization = () => {
     const token = loadFromLocalStorage('WallAppToken')
 
