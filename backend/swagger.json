@@ -60,18 +60,7 @@
         "tags": ["Users"],
         "description": "Used to login",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Standard Authorization header using a Token",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
+            {
             "name": "user",
             "in": "body",
             "description": "To login",

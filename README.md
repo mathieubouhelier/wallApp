@@ -59,7 +59,7 @@ To access and interact with WallApp Swagger documentation:
 - The backend must be running if not navigate to WallApp/backend and run the command
 
 ```
-npm start
+npm run dev
 ```
 
 - Please access to http://localhost:3000/api-docs/
