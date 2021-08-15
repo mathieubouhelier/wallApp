@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1629029948493" clover="3.2.0">
-  <project timestamp="1629029948493" name="All files">
+<coverage generated="1629039880534" clover="3.2.0">
+  <project timestamp="1629039880534" name="All files">
     <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="6" coveredelements="6" complexity="0" loc="6" ncloc="6" packages="1" files="3" classes="3"/>
     <file name="PutReturn.js" path="/home/mathieu/Documentos/test_TSL/wallApp/backend/tests/resultsQueryTests/PutReturn.js">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>

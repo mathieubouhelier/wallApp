@@ -16,7 +16,7 @@
     "start": "npm run start-back && npm run start-front",
     "dev": "npm run start-back-dev && npm run start-front",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cypress:open": "cypress open"
+    "cypress": "npm --prefix frontend/ run cypress:open"
   },
   "repository": {
     "type": "git",

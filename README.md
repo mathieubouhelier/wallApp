@@ -59,7 +59,7 @@ To access and interact with WallApp Swagger documentation:
 - The backend must be running if not navigate to WallApp/backend and run the command
 
 ```
-npm run dev
+npm start
 ```
 
 - Please access to http://localhost:3000/api-docs/
@@ -81,7 +81,7 @@ Two different type of tests are available, units tests for the backend and E2E t
 1. Navigate to WallApp/backend
 2. Run the command 
 ```
-npm run dev
+npm start
 ```
 
 3. Run the command 
@@ -98,9 +98,9 @@ npm test
 ```
 npm run dev
 ```
- 3. And after all started and running, navigate WallApp/frontend
+ 3. And after all started and running
 4. Run the command 
 ```
-npm run cypress:open
+npm run cypress
 ```
 
