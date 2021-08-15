@@ -49,7 +49,7 @@ const login = async (req, res) => {
     const { user_password: _, ...userWithoutPassword } = userFromDB.dataValues;
     const token = await createToken(userWithoutPassword);
 
-    return res.status(201).json({ token }); //201 ????
+    return res.status(201).json({ token }); 
   } catch (e) {
     console.log(e.message);
     res.status(500).send({ message: 'Error to login process' });

@@ -1,15 +1,14 @@
 import React from 'react';
 import { inputConstants } from '../utils/constants'
-
-
+import { Col, Row } from 'react-bootstrap/';
 
 
 const Input = ({ className, name, type, dataTestid, placeholder, value, onChange, inputType, inputValid }) => {
-  const TypeOfInput = inputType ? inputType : "default"; //Replace by default props ?
+  const TypeOfInput = inputType ? inputType : "default";
 
   return (
-    <div className="row mt-4 justify-content-center ">
-      <div className="col-md-4 form-group">
+    <Row className="mt-4 justify-content-center ">
+      <Col className="col-md-4 form-group">
         <input
           className={className ? `${className}` : inputConstants[TypeOfInput].className}
           name={name ? name : inputConstants[TypeOfInput].name}
@@ -22,10 +21,8 @@ const Input = ({ className, name, type, dataTestid, placeholder, value, onChange
         {!inputValid ?
           <small id="emailHelp" className="form-text text-danger">{inputConstants[TypeOfInput].invalidMessage}</small> :
           <small>  </small>}
-      </div>
-    </div>
-
-
+      </Col>
+    </Row>
   )
 }
 

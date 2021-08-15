@@ -7,6 +7,7 @@ import PublishManager from './PublishPostManager';
 import Header from '../../components/Header/Header'
 
 const PublishPost = (props) => {
+  const postId = props.dataWall.location.state.post.id;
   const history = useHistory();
   const postToEdit = props.dataWall.location.state?.post;
 
@@ -21,11 +22,17 @@ const PublishPost = (props) => {
 
   async function handleClick(event) {
     event.preventDefault();
-    const response = await PublishManager.publishPost(post);
+    const response = postToEdit ? await PublishManager.updatePost(post, postId) : await PublishManager.publishPost(post);
     if (response?.status === 201) {
       history.push({
         pathname: '/successfully',
         state: { message: "Post published  successfully", }
+      });
+    }
+    if (response?.status === 200) {
+      history.push({
+        pathname: '/successfully',
+        state: { message: "Post Edited successfully", }
       });
     }
     setErrorMessagePost(response?.data.message);
@@ -56,7 +63,7 @@ const PublishPost = (props) => {
             onClick={handleClick} data-testid="btn-publish"
           >Publish</Button>
           <Button className="mt-3 col-md-2 bg-white m-2 rounded-pill"
-            variant="Light" 
+            variant="Light"
             onClick={handleClickBackToWall} data-testid="btn-back"
           >Back to the Wall</Button>
         </Row>

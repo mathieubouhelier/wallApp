@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Input from '../../shared/components/Input'
-import { Container, Button, Col, Row } from 'react-bootstrap/';
+import { Container, Button} from 'react-bootstrap/';
 import RegisterManager from './RegisterManager';
 import { useHistory } from 'react-router-dom';
 

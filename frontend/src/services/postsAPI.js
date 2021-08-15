@@ -33,16 +33,18 @@ class PostService {
   }
 
   /** Get Posts */
-  async getAllPosts(token) {
-    console.log("getAllPosts", token);
-    return this.http.get('post', 
-    { headers: { Authorization: token } });
+  async getAllPosts() {
+    console.log("getAllPosts", );
+    return this.http.get('/post', 
+   );
   }
 
   /** Update  one (id) post */
-  async updatePost(token, id) {
+  async updatePost(post, token, id ) {
+    console.log("api", post, token, id );
+
     return this.http.put(
-      `/post/${id}`,
+      `/post/${id}`, post,
       { headers: { Authorization: token } },
     );
   }
