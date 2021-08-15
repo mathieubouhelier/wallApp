@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-NODE and MYSQL must be installed and running
+NODE and MYSQL must be installed and MSQL service must be running
 
 ## How to install and start this app?
 
@@ -14,13 +14,13 @@ NODE and MYSQL must be installed and running
  
 2. Install the dependencies: 
 
-- Navigate to root directory and run `npm run install`
+- Navigate to root directory WallApp/ and run `npm run install`
 
-3. Create an .`env` file at the root and fill it (use `.env.example` as an example)
-4. Navigate to /frontend, create an .`env` file and fill it (use `.env.example` as an example)
+3. Create an .`env` file at the root (WallApp/) and fill it (use `.env.example` (localize at WallApp/) as an example)
+4. Navigate to WallApp/frontend, create an .`env` file and fill it (use `.env_Frontend.example` (localize at WallApp/frontend)as an example)
 
 5. Start the app: 
-- Navigate to root directory and run `npm start`
+- Navigate to root directory WallApp/ and run the command `npm start`
 
 ## What it is about?
 
@@ -32,9 +32,14 @@ It is possible to register new users and when the register process is completed,
 
 To access and interact with WallApp Swagger documentation:
 
-- The backend must be running.  Run `npm run dev` form backend directory
+- The backend must be running if not navigate to WallApp/backend and run the command `npm run dev` 
 
 - Please access to http://localhost:3000/api-docs/
+
+## WallApp Diagram
+
+<img src = "./Wall App Diagram.png" alt="WallApp Diagram" height="200">
+<br />
 
 ## How to run the tests?
 
@@ -42,12 +47,14 @@ Two different type of tests are available, units tests for the backend and E2E t
 
 - To run the units tests:
 
-1. Navigate into the backend directory
-2. Execute `npm run dev`
-3. Execute `npm test`
+1. Navigate to WallApp/backend
+2. Run the command `npm run dev`
+3. Run the command `npm test`
 
 - To run the E2E Cypress tests:
 
-1. Navigate into the frontend directory
-2. Execute `npm cypress:open`
+1. Navigate to root WallApp/
+2. Run the App using the command `npm start` and after all start and running
+3. Navigate WallApp/frontend
+4. Run the command `npm cypress:open`
 
